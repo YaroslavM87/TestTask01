@@ -12,6 +12,6 @@ public class StartRace extends ControllerCommand {
 
     @Override
     public void execute() {
-        new com.yaroslavm87.testtask01.ModelCommands.StartRace(this.raceManager.getVehicleStartList()).execute();
+        new com.yaroslavm87.testtask01.ModelCommands.StartRace(this.raceManager).execute();
     }
 }

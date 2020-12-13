@@ -20,6 +20,8 @@ public class InitializeObjects extends ControllerCommand {
 
         Publisher vehicleStartListPublisher = new Publisher();
         new SetPublisherToObservable(this.raceManager.getVehicleStartList(), vehicleStartListPublisher).execute();
+
+        this.raceManager.getState().performTaskDefinedByState();
     }
 
     public RaceManager getRaceManager() {

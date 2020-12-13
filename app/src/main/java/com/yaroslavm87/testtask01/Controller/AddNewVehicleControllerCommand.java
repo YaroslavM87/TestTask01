@@ -24,7 +24,7 @@ public class AddNewVehicle extends ControllerCommand {
 
         new AddVehicleToVehicleBuffer(
                 createNewVehicle.getCreatedVehicle(),
-                raceManager.getVehicleBuffer()
+                raceManager
         ).execute();
     }
 }
