@@ -1,0 +1,22 @@
+package com.yaroslavm87.testtask01.ModelCommands;
+
+import com.yaroslavm87.testtask01.Notifications.Observable;
+import com.yaroslavm87.testtask01.Notifications.Publisher;
+
+public class SetPublisherToObservable extends ModelCommand {
+
+    private Observable observable;
+    private Publisher publisher;
+
+    public SetPublisherToObservable(Observable observable, Publisher publisher) {
+        super();
+        this.observable = observable;
+        this.publisher = publisher;
+    }
+
+    @Override
+    public void execute() {
+        this.observable.setPublisher(this.publisher);
+        super.markAsExecuted();
+    }
+}
