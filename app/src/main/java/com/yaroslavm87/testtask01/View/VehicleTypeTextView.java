@@ -31,6 +31,6 @@ public class VehicleTypeTextView extends ActivityTextView {
             }
         }
 
-        this.textView.setText(textViewValue);
+        super.textView.setText(textViewValue);
     }
 }

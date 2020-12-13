@@ -6,11 +6,11 @@ import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 import com.yaroslavm87.testtask01.RaceManager.VehicleStartList;
 import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 
-public class StartRace extends ModelCommand {
+public class StartRaceModelCommands extends ModelCommand {
 
     private RaceManager raceManager;
 
-    public StartRace(RaceManager raceManager) {
+    public StartRaceModelCommands(RaceManager raceManager) {
         super();
         this.raceManager = raceManager;
     }

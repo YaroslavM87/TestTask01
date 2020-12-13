@@ -5,17 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.yaroslavm87.testtask01.Controller.AddNewVehicle;
-import com.yaroslavm87.testtask01.Controller.AddVehicleToStartList;
-import com.yaroslavm87.testtask01.Controller.InitializeObjects;
-import com.yaroslavm87.testtask01.Controller.SetTrackLength;
-import com.yaroslavm87.testtask01.Controller.StartRace;
+import com.yaroslavm87.testtask01.Controller.AddNewVehicleControllerCommand;
+import com.yaroslavm87.testtask01.Controller.AddVehicleToStartListControllerCommand;
+import com.yaroslavm87.testtask01.Controller.InitializeObjectsControllerCommand;
+import com.yaroslavm87.testtask01.Controller.SetTrackLengthControllerCommand;
+import com.yaroslavm87.testtask01.Controller.StartRaceControllerCommand;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.View.ActivityTextView;
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManagerForRecyclerView;
     int layoutForRecyclerView;
 
-    InitializeObjects initializeObjects;
+    InitializeObjectsControllerCommand initializeObjectsControllerCommand;
     AdapterNotifier adapterNotifier;
 
 
@@ -61,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeControllerElements() {
-        initializeObjects = new InitializeObjects();
-        initializeObjects.execute();
+        initializeObjectsControllerCommand = new InitializeObjectsControllerCommand();
+        initializeObjectsControllerCommand.execute();
     }
 
     private void initializeViewGroupElements() {
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         layoutForRecyclerView = R.layout.recycler_view_for_list_of_vehicles_available;
 
         adapterForRecyclerViewVehicleTypes = new AdapterForRecyclerViewVehicleTypes(
-                this.initializeObjects.getRaceManager().getListOfVehicleTypes(),
+                this.initializeObjectsControllerCommand.getRaceManager().getListOfVehicleTypes(),
                 this.layoutForRecyclerView,
                vehicleType
         );
@@ -134,12 +132,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         adapterForRecyclerViewStartList = new AdapterForRecyclerViewStartList(
-                initializeObjects.getRaceManager().getVehicleStartList().getList(),
+                initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getList(),
                 layoutForRecyclerView,
                 vehicleType,
                 vehicleSpeed,
                 vehicleDistanceTravelled,
-                initializeObjects.getRaceManager().getPublisher()
+                initializeObjectsControllerCommand.getRaceManager().getPublisher()
         );
 
         layoutManagerForRecyclerView = new LinearLayoutManager(this);
@@ -153,13 +151,13 @@ public class MainActivity extends AppCompatActivity {
     private void subscribeObjectsForEvents() {
 
         Publisher vehicleRaceManagerPublisher =
-                initializeObjects.getRaceManager().getPublisher();
+                initializeObjectsControllerCommand.getRaceManager().getPublisher();
 
         Publisher vehicleBufferPublisher =
-                initializeObjects.getRaceManager().getVehicleBuffer().getPublisher();
+                initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer().getPublisher();
 
         Publisher vehicleStartListPublisher =
-                initializeObjects.getRaceManager().getVehicleStartList().getPublisher();
+                initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getPublisher();
 
         vehicleRaceManagerPublisher.subscribeForEvent(
                 trackLength,
@@ -212,22 +210,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addNewVehicle(View addNewVehicle) {
-        new AddVehicleToStartList(
-                initializeObjects.getRaceManager().getVehicleBuffer(),
-                initializeObjects.getRaceManager().getVehicleStartList()
+        new AddVehicleToStartListControllerCommand(
+                initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer(),
+                initializeObjectsControllerCommand.getRaceManager().getVehicleStartList()
         ).execute();
     }
 
     public void reduceTrackLength(View addNewVehicle) {
-        new SetTrackLength(initializeObjects.getRaceManager(), -100).execute();
+        new SetTrackLengthControllerCommand(initializeObjectsControllerCommand.getRaceManager(), -100).execute();
     }
 
     public void increaseTrackLength(View addNewVehicle) {
-        new SetTrackLength(initializeObjects.getRaceManager(), 100).execute();
+        new SetTrackLengthControllerCommand(initializeObjectsControllerCommand.getRaceManager(), 100).execute();
     }
 
     public void startRace(View addNewVehicle) {
-        new StartRace(initializeObjects.getRaceManager()).execute();
+        new StartRaceControllerCommand(initializeObjectsControllerCommand.getRaceManager()).execute();
     }
 
     public void defineActionWhenClickVehicleTypesAvailableListItem(
@@ -237,9 +235,9 @@ public class MainActivity extends AppCompatActivity {
                 new AdapterForRecyclerViewVehicleTypes.OnEntryClickListener() {
                 @Override
                 public void onEntryClick(View view, int position) {
-                    new AddNewVehicle(
-                            initializeObjects.getRaceManager().getListOfVehicleTypes().get(position),
-                            initializeObjects.getRaceManager()
+                    new AddNewVehicleControllerCommand(
+                            initializeObjectsControllerCommand.getRaceManager().getListOfVehicleTypes().get(position),
+                            initializeObjectsControllerCommand.getRaceManager()
                     ).execute();
                 }
             });

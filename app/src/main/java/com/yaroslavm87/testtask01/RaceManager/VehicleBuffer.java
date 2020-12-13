@@ -24,7 +24,7 @@ public class VehicleBuffer implements Observable {
         return new NotifySubscribersVehicleValuesChanged(this, event);
     }
 
-    public void addVehicleToBuffer(Vehicle vehicle) {
+    void addVehicleToBuffer(Vehicle vehicle) {
         this.vehicleFromBuffer = vehicle;
         eventType = EventType.VEHICLE_BUFFER_NEW_VEHICLE_ADDED;
         publisher.notifyEventHappened(this, new VehicleBufferNewVehicleAdded());

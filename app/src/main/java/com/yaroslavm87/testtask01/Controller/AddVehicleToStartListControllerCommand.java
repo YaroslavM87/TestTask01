@@ -1,15 +1,15 @@
 package com.yaroslavm87.testtask01.Controller;
 
-import com.yaroslavm87.testtask01.ModelCommands.AddVehicleToVehicleStartList;
+import com.yaroslavm87.testtask01.ModelCommands.AddVehicleToStartListModelCommand;
 import com.yaroslavm87.testtask01.RaceManager.VehicleBuffer;
 import com.yaroslavm87.testtask01.RaceManager.VehicleStartList;
 
-public class AddVehicleToStartList extends ControllerCommand {
+public class AddVehicleToStartListControllerCommand extends ControllerCommand {
 
     private VehicleBuffer vehicleBuffer;
     private VehicleStartList vehicleStartList;
 
-    public AddVehicleToStartList(VehicleBuffer vehicleBuffer, VehicleStartList vehicleStartList) {
+    public AddVehicleToStartListControllerCommand(VehicleBuffer vehicleBuffer, VehicleStartList vehicleStartList) {
         super();
         this.vehicleBuffer = vehicleBuffer;
         this.vehicleStartList = vehicleStartList;
@@ -20,7 +20,7 @@ public class AddVehicleToStartList extends ControllerCommand {
 
         if(this.vehicleBuffer.getVehicleFromBuffer() != null) {
 
-            new AddVehicleToVehicleStartList(
+            new AddVehicleToStartListModelCommand(
                     this.vehicleBuffer.getVehicleFromBuffer(),
                     this.vehicleStartList
             ).execute();

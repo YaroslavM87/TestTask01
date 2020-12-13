@@ -4,7 +4,7 @@ import com.yaroslavm87.testtask01.ModelCommands.SetPublisherToObservable;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 
-public class InitializeObjects extends ControllerCommand {
+public class InitializeObjectsControllerCommand extends ControllerCommand {
 
     private RaceManager raceManager;
 

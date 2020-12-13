@@ -3,15 +3,14 @@ package com.yaroslavm87.testtask01.ModelCommands;
 import com.yaroslavm87.testtask01.Notifications.Events.VehicleStartListNewVehicleAdded;
 import com.yaroslavm87.testtask01.RaceManager.VehicleStartList;
 import com.yaroslavm87.testtask01.Vehicle.*;
-import com.yaroslavm87.testtask01.Vehicle.States.Race;
 import com.yaroslavm87.testtask01.Vehicle.States.VehicleStateType;
 
-public class AddVehicleToVehicleStartList extends ModelCommand {
+public class AddVehicleToStartListModelCommand extends ModelCommand {
 
     private Vehicle vehicleToAdd;
     private VehicleStartList vehicleStartList;
 
-    public AddVehicleToVehicleStartList(Vehicle vehicle, VehicleStartList vehicleStartList) {
+    public AddVehicleToStartListModelCommand(Vehicle vehicle, VehicleStartList vehicleStartList) {
         super();
         this.vehicleToAdd = vehicle;
         this.vehicleStartList = vehicleStartList;

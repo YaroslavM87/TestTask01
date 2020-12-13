@@ -5,12 +5,12 @@ import com.yaroslavm87.testtask01.ModelCommands.CreateNewVehicle;
 import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 import com.yaroslavm87.testtask01.Vehicle.VehicleType;
 
-public class AddNewVehicle extends ControllerCommand {
+public class AddNewVehicleControllerCommand extends ControllerCommand {
 
     VehicleType vehicleType;
     RaceManager raceManager;
 
-    public AddNewVehicle(VehicleType vehicleType, RaceManager raceManager) {
+    public AddNewVehicleControllerCommand(VehicleType vehicleType, RaceManager raceManager) {
         this.vehicleType = vehicleType;
         this.raceManager = raceManager;
     }
