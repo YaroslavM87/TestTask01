@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
-import com.yaroslavm87.testtask01.R;
 import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
         private ActivityTextView VHVehicleType;
         private ActivityTextView VHVehicleSpeed;
         private ActivityTextView VHVehicleDistanceTravelled;
-        private VehicleDistanceTravelledProgressBar progressBar;
 
         ViewHolder(
                 @NonNull View itemView,
@@ -32,12 +30,9 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
             super(itemView);
             //itemView.setOnClickListener(this);
             this.VHVehicleType = new VehicleTypeTextView(itemView.findViewById(vehicleType));
-            this.VHVehicleSpeed = new VehicleSpeedTextView(itemView.findViewById(vehicleSpeed));
+            this.VHVehicleSpeed = new TextViewVehicleSpeed(itemView.findViewById(vehicleSpeed));
             this.VHVehicleDistanceTravelled = new VehicleDistanceTravelledTextView(
                     itemView.findViewById(vehicleDistanceTravelled)
-            );
-            this.progressBar = new VehicleDistanceTravelledProgressBar(
-                    itemView.findViewById(R.id.vehicleStartListVehicleDistanceTravelled)
             );
         }
 
@@ -55,7 +50,6 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
     private int vehicleType;
     private int vehicleSpeed;
     private int vehicleDistanceTravelled;
-    private Publisher raceManagerPublisher;
 
     public AdapterForRecyclerViewStartList(
             ArrayList<Vehicle> itemListForRecyclerView,
@@ -70,7 +64,6 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
         this.vehicleType = vehicleType;
         this.vehicleSpeed = vehicleSpeed;
         this.vehicleDistanceTravelled = vehicleDistanceTravelled;
-        this.raceManagerPublisher = raceManagerPublisher;
     }
 
     @NonNull
@@ -89,42 +82,23 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Vehicle vehicle = itemListForRecyclerView.get(position);
-        Publisher publisher = itemListForRecyclerView.get(position).getPublisher();
+        Publisher vehiclePublisher = vehicle.getPublisher();
 
         holder.VHVehicleType.receiveUpdate(vehicle.getVehicleType());
-        publisher.subscribeForEvent(
-                holder.VHVehicleType,
-                EventType.VEHICLE_TYPE_CHANGED
-        );
+//        vehiclePublisher.subscribeForEvent(
+//                holder.VHVehicleType,
+//                EventType.VEHICLE_TYPE_CHANGED
+//        );
 
         holder.VHVehicleSpeed.receiveUpdate(vehicle.getCurrentSpeed());
-        publisher.subscribeForEvent(
+        vehiclePublisher.subscribeForEvent(
                 holder.VHVehicleSpeed,
-                EventType.VEHICLE_VALUE_CHANGED_SPEED
+                EventType.VEHICLE_VALUE_CHANGED_CURRENT_SPEED
         );
 
         holder.VHVehicleDistanceTravelled.receiveUpdate(vehicle.getDistanceTravelledInMeters());
-        publisher.subscribeForEvent(
+        vehiclePublisher.subscribeForEvent(
                 holder.VHVehicleDistanceTravelled,
-                EventType.VEHICLE_VALUE_CHANGED_DISTANCE_TRAVELLED
-        );
-
-
-        holder.progressBar.getMaxProgressValue().receiveUpdate(
-                (int) vehicle.getRaceManager().getTrackLength()
-        );
-
-        this.raceManagerPublisher.subscribeForEvent(
-                holder.progressBar.getMaxProgressValue(),
-                EventType.RACE_MANAGER_VALUE_CHANGED_TRACK_LENGTH
-        );
-
-        holder.progressBar.getCurrentProgressValue().receiveUpdate(
-                vehicle.getDistanceTravelledInMeters()
-        );
-
-        publisher.subscribeForEvent(
-                holder.progressBar.getCurrentProgressValue(),
                 EventType.VEHICLE_VALUE_CHANGED_DISTANCE_TRAVELLED
         );
     }

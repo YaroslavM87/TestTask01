@@ -13,6 +13,6 @@ public class StatePreRace extends State {
 
     @Override
     public void performTaskDefinedByState() {
-        super.raceManager.setTrackLength(0);
+        super.raceManager.setTrackLength(100);
     }
 }

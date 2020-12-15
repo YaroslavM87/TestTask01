@@ -2,13 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        android:layout_gravity="center" >
+    android:orientation="horizontal">
 
         <TextView
             android:id="@+id/vehicleStartListTextViewType"
@@ -28,21 +22,4 @@
            android:layout_height="50dp"
           android:gravity="center" />
 
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/vehicleStartListVehicleDistanceTravelled"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="300dp"
-        android:layout_height="5dp"
-        android:progressTint="#EF0C0C" />
-
 </LinearLayout>
-
-<!--<ProgressBar-->
-<!--android:id="@+id/vehicleStartListVehicleDistanceTravelled"-->
-<!--style="@android:style/Widget.ProgressBar.Horizontal"-->
-<!--android:layout_width="250dp"-->
-<!--android:layout_height="20dp"-->
-<!--android:progress="0"-->
-<!--    />-->

@@ -1,5 +1,6 @@
 package com.yaroslavm87.testtask01.View;
 
+import android.view.View;
 import android.widget.TextView;
 
 public class VehicleAdditionalValueTextView extends ActivityTextView {

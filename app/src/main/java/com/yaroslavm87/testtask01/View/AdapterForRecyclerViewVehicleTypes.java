@@ -1,5 +1,6 @@
 package com.yaroslavm87.testtask01.View;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yaroslavm87.testtask01.R;
 import com.yaroslavm87.testtask01.Vehicle.VehicleType;
 
 import java.util.ArrayList;
@@ -15,12 +17,15 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ActivityTextView textViewForViewHolder;
+        ActivityTextView textViewVehicleType;
+        TextView textViewEmpty;
 
-        ViewHolder(@NonNull View itemView, int textView) {
+
+        ViewHolder(@NonNull View itemView, int textViewVehicleType, int textViewEmpty) {
             super(itemView);
             itemView.setOnClickListener(this);
-            textViewForViewHolder = new VehicleTypeTextView(itemView.findViewById(textView));
+            this.textViewVehicleType = new VehicleTypeTextView(itemView.findViewById(textViewVehicleType));
+            this.textViewEmpty = itemView.findViewById(textViewEmpty);
         }
 
         @Override
@@ -34,28 +39,31 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
     private ArrayList<VehicleType> itemListForRecyclerView;
     private OnEntryClickListener onEntryClickListener;
     private int layout;
-    private int textView;
+    private int textViewVehicleType;
+    private int textViewEmpty;
 
     public AdapterForRecyclerViewVehicleTypes(
             ArrayList<VehicleType> itemListForRecyclerView,
             int layout,
-            int textView
+            int textViewVehicleType,
+            int textViewEmpty
     ) {
         this.itemListForRecyclerView = itemListForRecyclerView;
         this.layout = layout;
-        this.textView = textView;
+        this.textViewVehicleType = textViewVehicleType;
+        this.textViewEmpty = textViewEmpty;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        return new ViewHolder(view, textView);
+        return new ViewHolder(view, this.textViewVehicleType, this.textViewEmpty);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textViewForViewHolder.getTextView().setText(itemListForRecyclerView.get(position).toString());
+        holder.textViewVehicleType.getTextView().setText(itemListForRecyclerView.get(position).toString());
     }
 
     @Override

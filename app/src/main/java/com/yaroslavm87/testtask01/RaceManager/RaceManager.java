@@ -48,12 +48,6 @@ public class RaceManager implements Observable {
         new StateChanger().setNextState(this, event);
     }
 
-    public void addVehicleToBuffer(Vehicle vehicle) {
-        if(this.raceManagerState.getType() == StateType.PRE_RACE) {
-            this.vehicleBuffer.addVehicleToBuffer(vehicle);
-        }
-    }
-
     void setState(State raceManagerState) {
         if(raceManagerState != null) {
             this.raceManagerState = raceManagerState;
@@ -87,11 +81,9 @@ public class RaceManager implements Observable {
     public void setTrackLength(double trackLength) {
         if(this.raceManagerState.getType() == StateType.PRE_RACE) {
             this.raceTrackLength = trackLength;
-            if (this.publisher != null) {
-                this.publisher.notifyEventHappened(
-                        this, new RaceManagerValueChangedTrackLength()
-                );
-            }
+            this.publisher.notifyEventHappened(
+                    this, new RaceManagerValueChangedTrackLength()
+            );
         }
     }
 

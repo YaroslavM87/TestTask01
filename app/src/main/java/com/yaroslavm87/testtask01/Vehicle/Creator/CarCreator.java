@@ -1,6 +1,8 @@
 package com.yaroslavm87.testtask01.Vehicle.Creator;
 
 import com.yaroslavm87.testtask01.ModelCommands.SetPublisherToObservable;
+import com.yaroslavm87.testtask01.ModelCommands.SetVehicleMaxSpeedModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.SetVehiclePunctureProbability;
 import com.yaroslavm87.testtask01.ModelCommands.SetVehicleRaceManager;
 import com.yaroslavm87.testtask01.Vehicle.ModelCommandSetVehicleState;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
@@ -21,6 +23,8 @@ public class CarCreator extends VehicleCreator {
         new SetVehicleRaceManager(newCar, super.raceManager).execute();
         new SetPublisherToObservable(newCar, super.publisher).execute();
         new ModelCommandSetVehicleState(newCar, new Stateless(newCar)).execute();
+        new SetVehicleMaxSpeedModelCommand(newCar, 80).execute();
+        new SetVehiclePunctureProbability(newCar, 0.7).execute();
         return newCar;
     }
 }

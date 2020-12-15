@@ -4,17 +4,17 @@ import com.yaroslavm87.testtask01.Notifications.Subscriber;
 import com.yaroslavm87.testtask01.RaceManager.VehicleStartList;
 import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 
-public class PassVehicleValueSpeedToSubscriber extends ModelCommand {
+public class PassVehicleValueCurrentSpeedToSubscriberModelCommand extends ModelCommand {
 
     private Vehicle sender;
     private Subscriber receiver;
 
-    public PassVehicleValueSpeedToSubscriber(
+    public PassVehicleValueCurrentSpeedToSubscriberModelCommand(
             Vehicle vehicleHavingValueSpeed,
-            Subscriber valueSpeedReceiver) {
+            Subscriber valueSpeedCurrentReceiver) {
         super();
         this.sender = vehicleHavingValueSpeed;
-        this.receiver = valueSpeedReceiver;
+        this.receiver = valueSpeedCurrentReceiver;
     }
 
     @Override

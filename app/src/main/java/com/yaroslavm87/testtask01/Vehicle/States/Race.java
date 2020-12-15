@@ -8,12 +8,10 @@ import java.util.TimerTask;
 
 public class Race extends VehicleState {
 
-    private double raceTrackLengthInMeters;
     private Timer raceTimer;
 
     public Race(Vehicle vehicle) {
         super(vehicle);
-        this.raceTrackLengthInMeters = vehicle.getRaceManager().getTrackLength();
     }
 
     @Override
@@ -53,7 +51,8 @@ public class Race extends VehicleState {
     }
 
     private double calculateVehicleDistanceRemainedInMeters() {
-        return this.raceTrackLengthInMeters - super.vehicle.getDistanceTravelledInMeters();
+        return super.vehicle.getRaceManager().getTrackLength() -
+                super.vehicle.getDistanceTravelledInMeters();
     }
 
     //TODO: improve calculation accuracy
@@ -67,10 +66,20 @@ public class Race extends VehicleState {
 
     //TODO: split into two different methods
     private void checkIfVehicleHasFinished() {
-        if(super.vehicle.getDistanceTravelledInMeters() >= raceTrackLengthInMeters) {
-            new SetVehicleDistanceTravelled(super.vehicle, raceTrackLengthInMeters).execute(); // does not relate to the name of the method
+        if(
+                super.vehicle.getDistanceTravelledInMeters() >=
+                super.vehicle.getRaceManager().getTrackLength()
+        ) {
+            new SetVehicleDistanceTravelled(
+                    super.vehicle,
+                    super.vehicle.getRaceManager().getTrackLength()
+            ).execute(); // does not relate to the name of the method
+
             new MakeVehicleFinished(super.vehicle).execute();
+
             raceTimer.cancel();
         }
     }
+
+
 }

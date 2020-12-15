@@ -20,22 +20,25 @@ import com.yaroslavm87.testtask01.View.ActivityTextView;
 import com.yaroslavm87.testtask01.View.AdapterForRecyclerViewVehicleTypes;
 import com.yaroslavm87.testtask01.View.AdapterNotifier;
 import com.yaroslavm87.testtask01.View.AdapterForRecyclerViewStartList;
+import com.yaroslavm87.testtask01.View.ButtonConfig;
 import com.yaroslavm87.testtask01.View.TrackLengthTextView;
 import com.yaroslavm87.testtask01.View.VehicleAdditionalValueTextView;
 import com.yaroslavm87.testtask01.View.VehiclePunctureProbabilityTextView;
-import com.yaroslavm87.testtask01.View.VehicleSpeedTextView;
+import com.yaroslavm87.testtask01.View.TextViewVehicleSpeed;
 import com.yaroslavm87.testtask01.View.VehicleTypeTextView;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityTextView vehicleBufferVehicleType;
-    ActivityTextView vehicleBufferVehicleSpeed;
+    TextViewVehicleSpeed vehicleBufferVehicleSpeed;
     ActivityTextView vehicleBufferVehiclePunctureProbability;
     ActivityTextView vehicleBufferVehicleAdditionalValue;
     ActivityTextView trackLength;
     Button addNewVehicle;
     Button reduceTrackLength;
     Button increaseTrackLength;
+    ButtonConfig reduceVehicleFromBufferValue;
+    ButtonConfig increaseVehicleFromBufferValue;
     RecyclerView recyclerViewVehicleTypes;
     RecyclerView recyclerViewVehicleStartList;
     AdapterForRecyclerViewVehicleTypes adapterForRecyclerViewVehicleTypes;
@@ -59,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeControllerElements() {
-        initializeObjectsControllerCommand = new InitializeObjectsControllerCommand();
-        initializeObjectsControllerCommand.execute();
+        this.initializeObjectsControllerCommand = new InitializeObjectsControllerCommand();
+        this.initializeObjectsControllerCommand.execute();
     }
 
     private void initializeViewGroupElements() {
@@ -71,52 +74,64 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeButtons() {
-        addNewVehicle = findViewById(R.id.addNewVehicle);
-        reduceTrackLength = findViewById(R.id.trackLengthReduce);
-        increaseTrackLength = findViewById(R.id.trackLengthIncrease);
+        this.addNewVehicle = findViewById(R.id.addNewVehicle);
+        this.reduceTrackLength = findViewById(R.id.trackLengthReduce);
+        this.increaseTrackLength = findViewById(R.id.trackLengthIncrease);
+        this.reduceVehicleFromBufferValue = new ButtonConfig(findViewById(R.id.vehicleValueReduce));
+        this.increaseVehicleFromBufferValue = new ButtonConfig(findViewById(R.id.vehicleValueIncrease));
     }
 
     private void initializeTextViews() {
-        vehicleBufferVehicleType = new VehicleTypeTextView(
+        this.vehicleBufferVehicleType = new VehicleTypeTextView(
                 (TextView) findViewById(R.id.vehicleBufferVehicleType)
         );
 
-        vehicleBufferVehicleSpeed = new VehicleSpeedTextView(
+        this.vehicleBufferVehicleSpeed = new TextViewVehicleSpeed(
                 (TextView) findViewById(R.id.vehicleBufferVehicleSpeed)
         );
-        vehicleBufferVehiclePunctureProbability = new VehiclePunctureProbabilityTextView(
+        this.vehicleBufferVehicleSpeed.getTextView().setOnClickListener(this.vehicleBufferVehicleSpeed);
+        this.vehicleBufferVehicleSpeed.setOnActivityTextViewClickListener(this.increaseVehicleFromBufferValue);
+        this.vehicleBufferVehicleSpeed.setOnActivityTextViewClickListener(this.reduceVehicleFromBufferValue);
+
+        this.vehicleBufferVehiclePunctureProbability = new VehiclePunctureProbabilityTextView(
                 (TextView) findViewById(R.id.vehicleBufferVehiclePunctureProb)
         );
-        vehicleBufferVehicleAdditionalValue = new VehicleAdditionalValueTextView(
+
+        this.vehicleBufferVehicleAdditionalValue = new VehicleAdditionalValueTextView(
                 (TextView) findViewById(R.id.vehicleBufferVehicleAdditionalValue)
         );
-        trackLength = new TrackLengthTextView(
+
+        this.trackLength = new TrackLengthTextView(
                 (TextView) findViewById(R.id.trackLength)
         );
+
+        this.trackLength.receiveUpdate(this.initializeObjectsControllerCommand.getRaceManager().getTrackLength());
     }
 
     private void initializeRecyclerViewForVehiclesAvailable() {
 
         int vehicleType = R.id.typeOfVehicleAvailable;
+        int empty = R.id.emptyTextView;
 
-        recyclerViewVehicleTypes = findViewById(R.id.listOfVehiclesAvailable);
-        layoutForRecyclerView = R.layout.recycler_view_for_list_of_vehicles_available;
+        this.recyclerViewVehicleTypes = findViewById(R.id.listOfVehiclesAvailable);
+        this.layoutForRecyclerView = R.layout.recycler_view_for_list_of_vehicles_available;
 
-        adapterForRecyclerViewVehicleTypes = new AdapterForRecyclerViewVehicleTypes(
+        this.adapterForRecyclerViewVehicleTypes = new AdapterForRecyclerViewVehicleTypes(
                 this.initializeObjectsControllerCommand.getRaceManager().getListOfVehicleTypes(),
                 this.layoutForRecyclerView,
-               vehicleType
+                vehicleType,
+                empty
         );
 
-        layoutManagerForRecyclerView = new LinearLayoutManager(
+        this.layoutManagerForRecyclerView = new LinearLayoutManager(
                 this,
                 LinearLayoutManager.HORIZONTAL,
                 false
         );
 
-        recyclerViewVehicleTypes.hasFixedSize();
-        recyclerViewVehicleTypes.setAdapter(adapterForRecyclerViewVehicleTypes);
-        recyclerViewVehicleTypes.setLayoutManager(layoutManagerForRecyclerView);
+        this.recyclerViewVehicleTypes.hasFixedSize();
+        this.recyclerViewVehicleTypes.setAdapter(adapterForRecyclerViewVehicleTypes);
+        this.recyclerViewVehicleTypes.setLayoutManager(layoutManagerForRecyclerView);
 
         defineActionWhenClickVehicleTypesAvailableListItem(adapterForRecyclerViewVehicleTypes);
     }
@@ -127,83 +142,81 @@ public class MainActivity extends AppCompatActivity {
         int vehicleSpeed = R.id.vehicleStartListTextViewVehicleSpeed;
         int vehicleDistanceTravelled = R.id.vehicleStartListTextViewVehicleDistanceTravelled;
 
-        recyclerViewVehicleStartList = findViewById(R.id.listOfVehicleStartList);
-        layoutForRecyclerView = R.layout.recycler_view_for_vehicle_start_list;
+        this.recyclerViewVehicleStartList = findViewById(R.id.listOfVehicleStartList);
+        this.layoutForRecyclerView = R.layout.recycler_view_for_vehicle_start_list;
 
 
-        adapterForRecyclerViewStartList = new AdapterForRecyclerViewStartList(
-                initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getList(),
-                layoutForRecyclerView,
+        this.adapterForRecyclerViewStartList = new AdapterForRecyclerViewStartList(
+                this.initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getList(),
+                this.layoutForRecyclerView,
                 vehicleType,
                 vehicleSpeed,
                 vehicleDistanceTravelled,
-                initializeObjectsControllerCommand.getRaceManager().getPublisher()
+                this.initializeObjectsControllerCommand.getRaceManager().getPublisher()
         );
 
-        layoutManagerForRecyclerView = new LinearLayoutManager(this);
+        this.layoutManagerForRecyclerView = new LinearLayoutManager(this);
 
-        adapterNotifier = new AdapterNotifier(adapterForRecyclerViewStartList);
+        this.adapterNotifier = new AdapterNotifier(adapterForRecyclerViewStartList);
 
-        recyclerViewVehicleStartList.setAdapter(adapterForRecyclerViewStartList);
-        recyclerViewVehicleStartList.setLayoutManager(new LinearLayoutManager(this));
+        this.recyclerViewVehicleStartList.setAdapter(adapterForRecyclerViewStartList);
+        this.recyclerViewVehicleStartList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void subscribeObjectsForEvents() {
 
         Publisher vehicleRaceManagerPublisher =
-                initializeObjectsControllerCommand.getRaceManager().getPublisher();
+                this.initializeObjectsControllerCommand.getRaceManager().getPublisher();
 
         Publisher vehicleBufferPublisher =
-                initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer().getPublisher();
+                this.initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer().getPublisher();
 
         Publisher vehicleStartListPublisher =
-                initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getPublisher();
+                this.initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getPublisher();
 
         vehicleRaceManagerPublisher.subscribeForEvent(
-                trackLength,
+                this.trackLength,
                 EventType.RACE_MANAGER_VALUE_CHANGED_TRACK_LENGTH
         );
 
         vehicleBufferPublisher.subscribeForEvent(
                 EventType.VEHICLE_BUFFER_NEW_VEHICLE_ADDED,
-                vehicleBufferVehicleType,
-                vehicleBufferVehicleSpeed,
-                vehicleBufferVehiclePunctureProbability,
-                vehicleBufferVehicleAdditionalValue
+                this.vehicleBufferVehicleType
+//                this.vehicleBufferVehicleSpeed,
+//                this.vehicleBufferVehiclePunctureProbability,
+//                this.vehicleBufferVehicleAdditionalValue
         );
 
         vehicleBufferPublisher.subscribeForEvent(
                 EventType.VEHICLE_BUFFER_VEHICLE_DELETED,
-                vehicleBufferVehicleType,
-                vehicleBufferVehicleSpeed,
-                vehicleBufferVehiclePunctureProbability,
-                vehicleBufferVehicleAdditionalValue
+                this.vehicleBufferVehicleType
+//                this.vehicleBufferVehicleSpeed,
+//                this.vehicleBufferVehiclePunctureProbability,
+//                this.vehicleBufferVehicleAdditionalValue
         );
 
         vehicleBufferPublisher.subscribeForEvent(
-                vehicleBufferVehicleType,
+                this.vehicleBufferVehicleType,
                 EventType.VEHICLE_TYPE_CHANGED
         );
 
         vehicleBufferPublisher.subscribeForEvent(
-                vehicleBufferVehicleSpeed,
-                EventType.VEHICLE_VALUE_CHANGED_SPEED
+                this.vehicleBufferVehicleSpeed,
+                EventType.VEHICLE_VALUE_CHANGED_MAX_SPEED
         );
 
-
         vehicleBufferPublisher.subscribeForEvent(
-                vehicleBufferVehiclePunctureProbability,
+                this.vehicleBufferVehiclePunctureProbability,
                 EventType.VEHICLE_VALUE_CHANGED_PUNCTURE_PROBABILITY
         );
 
-
         vehicleBufferPublisher.subscribeForEvent(
-                vehicleBufferVehicleAdditionalValue,
+                this.vehicleBufferVehicleAdditionalValue,
                 EventType.VEHICLE_VALUE_CHANGED_ADDITIONAL_VALUE
         );
 
         vehicleStartListPublisher.subscribeForEvent(
-                adapterNotifier,
+                this.adapterNotifier,
                 EventType.VEHICLE_START_LIST_NEW_VEHICLE_ADDED,
                 EventType.VEHICLE_START_LIST_VEHICLE_DELETED
         );
@@ -211,21 +224,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void addNewVehicle(View addNewVehicle) {
         new AddVehicleToStartListControllerCommand(
-                initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer(),
-                initializeObjectsControllerCommand.getRaceManager().getVehicleStartList()
+                this.initializeObjectsControllerCommand.getRaceManager()
         ).execute();
     }
 
     public void reduceTrackLength(View addNewVehicle) {
-        new SetTrackLengthControllerCommand(initializeObjectsControllerCommand.getRaceManager(), -100).execute();
+        new SetTrackLengthControllerCommand(this.initializeObjectsControllerCommand.getRaceManager(), -100).execute();
     }
 
     public void increaseTrackLength(View addNewVehicle) {
-        new SetTrackLengthControllerCommand(initializeObjectsControllerCommand.getRaceManager(), 100).execute();
+        new SetTrackLengthControllerCommand(this.initializeObjectsControllerCommand.getRaceManager(), 100).execute();
     }
 
     public void startRace(View addNewVehicle) {
-        new StartRaceControllerCommand(initializeObjectsControllerCommand.getRaceManager()).execute();
+        new StartRaceControllerCommand(this.initializeObjectsControllerCommand.getRaceManager()).execute();
     }
 
     public void defineActionWhenClickVehicleTypesAvailableListItem(
@@ -241,5 +253,23 @@ public class MainActivity extends AppCompatActivity {
                     ).execute();
                 }
             });
+    }
+
+    public void defineActionWhenClickButtonReduceVehicleFromBufferValue(View v) {
+        this.reduceVehicleFromBufferValue.clickButton(
+                initializeObjectsControllerCommand.
+                        getRaceManager().
+                        getVehicleBuffer().
+                        getVehicleFromBuffer(),
+                -10);
+    }
+
+    public void defineActionWhenClickButtonIncreaseVehicleFromBufferValue(View v) {
+        this.increaseVehicleFromBufferValue.clickButton(
+                initializeObjectsControllerCommand.
+                        getRaceManager().
+                        getVehicleBuffer().
+                        getVehicleFromBuffer(),
+                10);
     }
 }

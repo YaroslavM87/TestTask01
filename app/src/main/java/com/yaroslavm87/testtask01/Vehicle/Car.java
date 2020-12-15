@@ -15,11 +15,21 @@ public class Car extends Vehicle {
     }
 
     @Override
-    public void setSpeed(double vehicleSpeed) {
-        if(vehicleSpeed > 0) {
-            super.vehicleSpeed = vehicleSpeed;
+    public void setMaxSpeed(double vehicleMaxSpeed) {
+        if(vehicleMaxSpeed > 40 & vehicleMaxSpeed < 120) {
+            super.vehicleMaxSpeed = vehicleMaxSpeed;
+            super.raceManager.getVehicleBuffer().getPublisher().notifyEventHappened(
+                    this, new VehicleValueChangedMaxSpeed()
+            );
+        }
+    }
+
+    @Override
+    public void setCurrentSpeed(double vehicleSpeed) {
+        if(vehicleSpeed >= 0 & vehicleSpeed <= super.vehicleMaxSpeed) {
+            super.vehicleCurrentSpeed = vehicleSpeed;
             this.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedSpeed()
+                    this, new VehicleValueChangedCurrentSpeed()
             );
         }
     }
@@ -32,7 +42,6 @@ public class Car extends Vehicle {
                     this, new VehicleValueChangedDistanceTravelled()
             );
         }
-
     }
 
     @Override
@@ -55,7 +64,6 @@ public class Car extends Vehicle {
             );
         }
     }
-
 
     //TODO: add command for this method
     @Override
@@ -86,8 +94,18 @@ public class Car extends Vehicle {
                         this, subscriber
                 );
 
-            case VEHICLE_VALUE_CHANGED_SPEED:
-                return new PassVehicleValueSpeedToSubscriber(
+            case VEHICLE_VALUE_CHANGED_MAX_SPEED:
+                return new PassVehicleValueMaxSpeedToSubscriberModelCommand(
+                        this, subscriber
+                );
+
+            case VEHICLE_VALUE_CHANGED_CURRENT_SPEED:
+                return new PassVehicleValueCurrentSpeedToSubscriberModelCommand(
+                        this, subscriber
+                );
+
+            case VEHICLE_VALUE_CHANGED_PUNCTURE_PROBABILITY:
+                return new PassVehicleValuePunctureProbabilityToSubscriber(
                         this, subscriber
                 );
 
@@ -98,11 +116,6 @@ public class Car extends Vehicle {
 
             case VEHICLE_VALUE_CHANGED_STATE:
                 return new PassVehicleValueStateToSubscriber(
-                        this, subscriber
-                );
-
-            case VEHICLE_VALUE_CHANGED_PUNCTURE_PROBABILITY:
-                return new PassVehicleValuePunctureProbabilityToSubscriber(
                         this, subscriber
                 );
 

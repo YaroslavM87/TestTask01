@@ -3,14 +3,13 @@ package com.yaroslavm87.testtask01.ModelCommands;
 import com.yaroslavm87.testtask01.Notifications.Events.Event;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Events.VehicleTypeChanged;
-import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedAdditionalValue;
+import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedMaxSpeed;
 import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedPunctureProbability;
-import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedSpeed;
+import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedCurrentSpeed;
 import com.yaroslavm87.testtask01.Notifications.Observable;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.Notifications.Subscriber;
 import com.yaroslavm87.testtask01.RaceManager.VehicleBuffer;
-import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 
 public class NotifySubscribersVehicleValuesChanged extends ModelCommand implements Observable {
 
@@ -27,12 +26,12 @@ public class NotifySubscribersVehicleValuesChanged extends ModelCommand implemen
     public void execute() {
         if(event.getType() == EventType.VEHICLE_BUFFER_NEW_VEHICLE_ADDED) {
             sender.getPublisher().notifyEventHappened(sender.getVehicleFromBuffer(), new VehicleTypeChanged());
-            sender.getPublisher().notifyEventHappened(sender.getVehicleFromBuffer(), new VehicleValueChangedSpeed());
+            sender.getPublisher().notifyEventHappened(sender.getVehicleFromBuffer(), new VehicleValueChangedMaxSpeed());
             sender.getPublisher().notifyEventHappened(sender.getVehicleFromBuffer(), new VehicleValueChangedPunctureProbability());
             //sender.getPublisher().notifyEventHappened(sender, new VehicleValueChangedAdditionalValue());
         } else if(event.getType() == EventType.VEHICLE_BUFFER_VEHICLE_DELETED) {
             sender.getPublisher().notifyEventHappened(this, new VehicleTypeChanged());
-            sender.getPublisher().notifyEventHappened(this, new VehicleValueChangedSpeed());
+            sender.getPublisher().notifyEventHappened(this, new VehicleValueChangedMaxSpeed());
             sender.getPublisher().notifyEventHappened(this, new VehicleValueChangedPunctureProbability());
         }
     }

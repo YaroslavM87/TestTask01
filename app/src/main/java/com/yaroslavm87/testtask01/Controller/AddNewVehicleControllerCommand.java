@@ -1,7 +1,7 @@
 package com.yaroslavm87.testtask01.Controller;
 
-import com.yaroslavm87.testtask01.ModelCommands.AddVehicleToVehicleBuffer;
-import com.yaroslavm87.testtask01.ModelCommands.CreateNewVehicle;
+import com.yaroslavm87.testtask01.ModelCommands.AddVehicleToBufferModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.CreateNewVehicleModelCommand;
 import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 import com.yaroslavm87.testtask01.Vehicle.VehicleType;
 
@@ -18,11 +18,11 @@ public class AddNewVehicleControllerCommand extends ControllerCommand {
     @Override
     public void execute() {
 
-        CreateNewVehicle createNewVehicle = new CreateNewVehicle(vehicleType, raceManager);
+        CreateNewVehicleModelCommand createNewVehicle = new CreateNewVehicleModelCommand(vehicleType, raceManager);
 
         createNewVehicle.execute();
 
-        new AddVehicleToVehicleBuffer(
+        new AddVehicleToBufferModelCommand(
                 createNewVehicle.getCreatedVehicle(),
                 raceManager
         ).execute();

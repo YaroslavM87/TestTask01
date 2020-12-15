@@ -11,7 +11,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfVehiclesAvailable"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,14 +19,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="150dp"
+        android:padding="10dp"
         android:orientation="horizontal"
-        android:layout_gravity="top" >
+        android:layout_gravity="center" >
 
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_weight="7"
+            android:layout_width="0dp"
             android:layout_height="150dp"
+            android:padding="10dp"
             android:orientation="vertical"
             android:layout_gravity="center" >
 
@@ -53,8 +55,54 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:layout_gravity="center" >
+
+            <Button
+                android:id="@+id/vehicleValueIncrease"
+                style="@style/ButtonStyle"
+                android:onClick="defineActionWhenClickButtonIncreaseVehicleFromBufferValue"
+                android:text="+"
+                app:backgroundTint="@color/colorBackgroundSecondary"
+                app:elevation="0dp"
+                app:iconTint="#FFFFFF"
+                app:rippleColor="@color/colorButtonRipple"
+                app:strokeColor="@color/colorButtonStroke"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/vehicleValueReduce"
+                style="@style/ButtonStyle"
+                android:layout_gravity="center"
+                android:onClick="defineActionWhenClickButtonReduceVehicleFromBufferValue"
+                android:text="-"
+                app:backgroundTint="@color/colorBackgroundSecondary"
+                app:elevation="0dp"
+                app:iconTint="#FFFFFF"
+                app:rippleColor="@color/colorButtonRipple"
+                app:strokeColor="@color/colorButtonStroke"
+                app:strokeWidth="1dp" />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_gravity="top" >
+
+        <LinearLayout
             android:layout_width="250dp"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center" >
 
@@ -130,7 +178,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfVehicleStartList"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,6 @@
 package com.yaroslavm87.testtask01.Controller;
 
-import com.yaroslavm87.testtask01.ModelCommands.StartRaceModelCommands;
+import com.yaroslavm87.testtask01.ModelCommands.StartRaceModelCommand;
 import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 
 public class StartRaceControllerCommand extends ControllerCommand {
@@ -13,6 +13,6 @@ public class StartRaceControllerCommand extends ControllerCommand {
 
     @Override
     public void execute() {
-        new StartRaceModelCommands(this.raceManager).execute();
+        new StartRaceModelCommand(this.raceManager).execute();
     }
 }

@@ -2,15 +2,15 @@ package com.yaroslavm87.testtask01.ModelCommands;
 
 import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 
-public class SetTrackLengthInKm extends ModelCommand {
+public class SetTrackLengthModelCommand extends ModelCommand {
 
     private RaceManager raceManager;
     private double raceTrackLengthInKm;
 
-    public SetTrackLengthInKm(RaceManager raceManager, double raceTrackLengthInKm) {
+    public SetTrackLengthModelCommand(RaceManager raceManager, double raceTrackLength) {
         super();
         this.raceManager = raceManager;
-        this.raceTrackLengthInKm = raceTrackLengthInKm;
+        this.raceTrackLengthInKm = raceTrackLength;
     }
 
     @Override
