@@ -9,6 +9,11 @@ import java.util.TimerTask;
 public class Race extends VehicleState {
 
     private Timer raceTimer;
+    private boolean vehicleGotPuncture;
+
+    {
+        vehicleGotPuncture = false;
+    }
 
     public Race(Vehicle vehicle) {
         super(vehicle);
@@ -32,13 +37,56 @@ public class Race extends VehicleState {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                calculateVehicleDistanceTraveled();
-                checkIfVehicleHasFinished();
-                decideIfVehicleGetPuncture();
+
+                if(vehicleGotPuncture) {
+
+                    if(checkIfVehicleHasSpeed()) {
+                        decelerateVehicle();
+                        calculateVehicleDistanceTraveled();
+
+                    } else {
+                        makeVehicleGetPuncture();
+                    }
+
+                } else {
+
+                    if(checkIfVehicleIsAccelerating()) {
+                        accelerateVehicle();
+                    }
+
+                    calculateVehicleDistanceTraveled();
+                    checkIfVehicleHasFinished();
+                    decideIfVehicleGetPuncture();
+                }
             }
         };
+
         raceTimer = new Timer();
         raceTimer.scheduleAtFixedRate(timerTask, 100, 100);
+    }
+
+    private boolean checkIfVehicleIsAccelerating() {
+        return super.vehicle.getCurrentSpeed() < super.vehicle.getMaxSpeed();
+    }
+
+    private void accelerateVehicle() {
+        double result = super.vehicle.getCurrentSpeed() + 1;
+        new SetVehicleCurrentSpeedModelCommand(super.vehicle, result).execute();
+    }
+
+    private boolean checkIfVehicleHasSpeed() {
+        return super.vehicle.getCurrentSpeed() > 0;
+    }
+
+    private void decelerateVehicle() {
+        double result = super.vehicle.getCurrentSpeed() - 3;
+
+        if(result > 0) {
+            new SetVehicleCurrentSpeedModelCommand(super.vehicle, result).execute();
+
+        } else {
+            new SetVehicleCurrentSpeedModelCommand(super.vehicle, 0).execute();
+        }
     }
 
     // calculates distance travelled for each 100ms
@@ -58,10 +106,7 @@ public class Race extends VehicleState {
     //TODO: improve calculation accuracy
     private void decideIfVehicleGetPuncture() {
         double result = super.vehicle.getPunctureProbability() * Math.random();
-        if(result >= 0.695) {
-            new MakeVehicleGetPuncture(super.vehicle).execute();
-            raceTimer.cancel();
-        }
+        vehicleGotPuncture = result >= 0.695;
     }
 
     //TODO: split into two different methods
@@ -81,5 +126,9 @@ public class Race extends VehicleState {
         }
     }
 
-
+    private void makeVehicleGetPuncture() {
+        calculateVehicleDistanceTraveled();
+        new MakeVehicleGetPuncture(super.vehicle).execute();
+        raceTimer.cancel();
+    }
 }

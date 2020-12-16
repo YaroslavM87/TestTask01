@@ -20,7 +20,7 @@ public class VehicleDistanceTravelledTextView extends ActivityTextView {
 
         } else if(updatedValue instanceof Double) {
             double d = (Double) updatedValue;
-            textViewValue = String.format("Distance travelled: %4.2f", d);
+            textViewValue = String.format("Distance travelled:%n%4.2f", d);
 
         } else {
             if(updatedValue != null) {

@@ -36,7 +36,7 @@ public class TextViewVehicleSpeed extends ActivityTextView implements View.OnCli
             double d = (Double) updatedValue;
 
             if(d >= 0.0) {
-                textViewValue = String.format("Max speed: %3.1f", d);
+                textViewValue = String.format("Max speed:%n%3.1f", d);
 
             } else {
                 textViewValue = "";
