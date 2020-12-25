@@ -45,6 +45,16 @@ public class Car extends Vehicle {
     }
 
     @Override
+    public void setFinishTime(long finishTime) {
+        if(finishTime > 0L) {
+            super.vehicleFinishTime = finishTime;
+            super.publisher.notifyEventHappened(
+                    this, new VehicleValueChangedFinishTime()
+            );
+        }
+    }
+
+    @Override
     public void setPunctureProbability(double vehiclePunctureProbability) {
         if(vehiclePunctureProbability > 0 & vehiclePunctureProbability < 1) {
             this.vehiclePunctureProbability = vehiclePunctureProbability;
@@ -77,7 +87,7 @@ public class Car extends Vehicle {
     }
 
     @Override
-    public void setTimerPublisher(Publisher timerPublisher) {
+    public void setPublisher(Publisher timerPublisher) {
         super.publisher = timerPublisher;
     }
 
@@ -111,6 +121,11 @@ public class Car extends Vehicle {
 
             case VEHICLE_VALUE_CHANGED_DISTANCE_TRAVELLED:
                 return new PassVehicleValueDistanceTravelledToSubscriber(
+                        this, subscriber
+                );
+
+            case VEHICLE_VALUE_CHANGED_FINISH_TIME:
+                return new PassVehicleValueFinishTimeToSubscriber(
                         this, subscriber
                 );
 

@@ -16,15 +16,15 @@ public class TextViewVehicleDistanceTravelled extends ActivityTextView {
         String textViewValue;
 
         if (updatedValue instanceof String) {
-            textViewValue = "Distance travelled: ".concat((String)updatedValue);
+            textViewValue = "".concat((String)updatedValue);
 
         } else if(updatedValue instanceof Double) {
             double d = (Double) updatedValue;
-            textViewValue = String.format("Distance travelled:%n%4.2f", d);
+            textViewValue = String.format("%4.2f", d);
 
         } else {
             if(updatedValue != null) {
-                textViewValue = "Distance travelled: ".concat(updatedValue.toString());
+                textViewValue = "".concat(updatedValue.toString());
 
             } else {
                 textViewValue = "";

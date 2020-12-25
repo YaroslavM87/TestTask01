@@ -10,6 +10,7 @@ import com.yaroslavm87.testtask01.Notifications.Events.RaceManagerValueChangedTr
 import com.yaroslavm87.testtask01.Notifications.Observable;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.Notifications.Subscriber;
+import com.yaroslavm87.testtask01.Singletone;
 import com.yaroslavm87.testtask01.Vehicle.VehicleType;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,14 +18,13 @@ import java.util.Arrays;
 
 public class RaceManager implements Observable {
 
-    public class RaceTimer implements Observable {
+    public static class RaceTimer implements Observable {
 
-        private double timer;
+        private long timer;
         private Publisher timerPublisher;
 
-        private RaceTimer(Publisher timerPublisher) {
-            setTimerPublisher(timerPublisher);
-            this.timer = 0;
+        private RaceTimer() {
+            this.timer = 0L;
         }
 
         @Override
@@ -36,16 +36,16 @@ public class RaceManager implements Observable {
         }
 
         @Override
-        public void setTimerPublisher(Publisher timerPublisher) {
+        public void setPublisher(Publisher timerPublisher) {
             this.timerPublisher = timerPublisher;
         }
 
-        private void count(double additionValueToTimer) {
+        private void count(long additionValueToTimer) {
             this.timer = this.timer + additionValueToTimer;
             timerPublisher.notifyEventHappened(this, new RaceManagerValueChangedRaceTimer());
         }
 
-        public double getRaceTimerValue() {
+        public long getRaceTimerValue() {
             return timer;
         }
     }
@@ -60,15 +60,17 @@ public class RaceManager implements Observable {
     private byte amountOfCarsFinished;
 
     public RaceManager() {
-        this.raceManagerState = new StatePreRaceForRaceManager(this);
+        setState(new StatePreRaceForRaceManager(this));
         this.listOfVehicleTypes = new ArrayList<>(
                 Arrays.asList(VehicleType.values())
         );
         this.listOfVehicleTypes.trimToSize();
         this.vehicleBuffer = new VehicleBuffer();
         this.vehicleStartList = new VehicleStartList();
-        this.raceTimer = new RaceTimer(this.publisher);
+        this.raceTimer = new RaceTimer();
         this.amountOfCarsFinished = 0;
+
+        Singletone.raceManager = this;
     }
 
     @Override
@@ -79,8 +81,9 @@ public class RaceManager implements Observable {
     }
 
     @Override
-    public void setTimerPublisher(Publisher timerPublisher) {
-        this.publisher = timerPublisher;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+        this.raceTimer.setPublisher(publisher);
     }
 
     public void changeState(Event event) {
@@ -90,6 +93,7 @@ public class RaceManager implements Observable {
     void setState(State raceManagerState) {
         if(raceManagerState != null) {
             this.raceManagerState = raceManagerState;
+            this.raceManagerState.performTaskDefinedByState();
         }
     }
 
@@ -110,11 +114,16 @@ public class RaceManager implements Observable {
     }
 
     public void setTrackLength(double trackLength) {
+
         if(this.raceManagerState.getType() == StateType.PRE_RACE) {
             this.raceTrackLength = trackLength;
-            this.publisher.notifyEventHappened(
-                    this, new RaceManagerValueChangedTrackLength()
-            );
+
+            if(this.publisher != null) {
+                this.publisher.notifyEventHappened(
+                        this,
+                        new RaceManagerValueChangedTrackLength()
+                );
+            }
         }
     }
 
@@ -126,15 +135,21 @@ public class RaceManager implements Observable {
         return publisher;
     }
 
-    public void raceTimerCount(double additionValueToTimer) {
+    public void raceTimerCount(long additionValueToTimer) {
         this.raceTimer.count(additionValueToTimer);
     }
 
+    public RaceTimer getRaceTimer() {
+        return raceTimer;
+    }
+
     public void countVehicleAsFinished() {
-        this.amountOfCarsFinished = this.amountOfCarsFinished++;
+        this.amountOfCarsFinished++;
     }
     public void performActionIfAllVehiclesHaveFinished() {
         if(this.amountOfCarsFinished == this.vehicleStartList.getList().size()) {
+            StateRaceForRaceManager state = (StateRaceForRaceManager) this.raceManagerState;
+            state.cancelTimer();
             changeState(new RaceEnded());
         }
     }

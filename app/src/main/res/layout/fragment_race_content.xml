@@ -45,7 +45,7 @@
             />
 
         <TextView
-            android:id="@+id/raceTimer"
+            android:id="@+id/textViewRaceTimer"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:gravity="center"
@@ -62,23 +62,26 @@
         >
         <TextView
             android:id="@+id/textViewVehicleTypeHeader"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:gravity="center"
+            style="@style/baseTextViewVehicleValuesDuringRace"
+            android:text="@string/vehicle_type"
             />
 
         <TextView
             android:id="@+id/textViewVehicleCurrentSpeedAndStatusHeader"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:gravity="center"
+            style="@style/baseTextViewVehicleValuesDuringRace"
+            android:text="@string/vehicle_current_speed"
             />
 
         <TextView
             android:id="@+id/textViewVehicleDistanceTravelledHeader"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:gravity="center"
+            style="@style/baseTextViewVehicleValuesDuringRace"
+            android:text="@string/vehicle_distance_travelled"
+            />
+
+        <TextView
+            android:id="@+id/textViewVehicleFinishTime"
+            style="@style/baseTextViewVehicleValuesDuringRace"
+            android:text="@string/vehicle_finish_time"
             />
 
 

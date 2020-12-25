@@ -39,7 +39,7 @@ public class VehicleStartList implements Observable {
     }
 
     @Override
-    public void setTimerPublisher(Publisher timerPublisher) {
+    public void setPublisher(Publisher timerPublisher) {
         this.publisher = timerPublisher;
     }
 

@@ -18,15 +18,20 @@ public class StateRaceForRaceManager extends State {
 
     @Override
     public void performTaskDefinedByState() {
+
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                raceManager.raceTimerCount(100);
+                raceManager.raceTimerCount(100L);
                 raceManager.performActionIfAllVehiclesHaveFinished();
             }
         };
 
         raceTimer = new Timer();
-        raceTimer.scheduleAtFixedRate(timerTask, 100, 100);
+        raceTimer.scheduleAtFixedRate(timerTask, 100L, 100L);
+    }
+
+    public void cancelTimer() {
+        raceTimer.cancel();
     }
 }

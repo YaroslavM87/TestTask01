@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.R;
+import com.yaroslavm87.testtask01.Singletone;
 
 public class FragmentRace extends Fragment {
 
     private ActivityTextView trackLength;
-    private ActivityTextView trackTimer;
+    private ActivityTextView raceTimer;
 
 //    ActivityTextView vehicleType;
 //    ActivityTextView vehicleCurrentSpeedAndState;
@@ -27,11 +28,7 @@ public class FragmentRace extends Fragment {
 
 
     RecyclerView recyclerViewVehicleRaceList;
-    AdapterForRecyclerViewStartList adapterForRecyclerViewRaceList;
-//
-//
-//
-//    InitializeObjectsControllerCommand initializeObjectsControllerCommand;
+    AdapterForRecyclerViewRaceList adapterForRecyclerViewRaceList;
 
     @Nullable
     @Override
@@ -41,39 +38,41 @@ public class FragmentRace extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        initializeControllerElements();
-//        initializeButtons();
         initializeTextViews();
         initializeRecyclerViewForVehicleRaceList();
-//        subscribeObjectsForEvents();
+        subscribeObjectsForEvents();
     }
 
     private void initializeTextViews() {
         this.trackLength = new TextViewTrackLength(
                 (TextView) requireView().findViewById(R.id.textViewTrackLength)
         );
+        this.trackLength.receiveUpdate(Singletone.raceManager.getTrackLength());
 
-        this.trackTimer = new TextViewTrackTimer(
-                (TextView) requireView().findViewById(R.id.raceTimer)
+        this.raceTimer = new TextViewRaceTimer(
+                (TextView) requireView().findViewById(R.id.textViewRaceTimer)
         );
+
     }
 
     private void initializeRecyclerViewForVehicleRaceList() {
 
         int vehicleType = R.id.vehicleRaceListTextViewType;
         int vehicleCurrentSpeedAndStatus = R.id.vehicleRaceListTextViewVehicleCurrentSpeedAndState;
-        int vehicleDistanceTravelled = R.id.vehicleStartListTextViewVehicleDistanceTravelled;
+        int vehicleDistanceTravelled = R.id.vehicleRaceListTextViewVehicleDistanceTravelled;
         int layoutForRecyclerView;
+        int vehicleFinishTime = R.id.vehicleRaceListTextViewVehicleFinishTime;
 
         this.recyclerViewVehicleRaceList = requireView().findViewById(R.id.vehicleRaceList);
         layoutForRecyclerView = R.layout.recycler_view_for_vehicle_race_list;
 
         this.adapterForRecyclerViewRaceList = new AdapterForRecyclerViewRaceList(
-                this.initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getList(),
+                Singletone.raceManager.getVehicleStartList().getList(),
                 layoutForRecyclerView,
                 vehicleType,
                 vehicleCurrentSpeedAndStatus,
-                vehicleDistanceTravelled
+                vehicleDistanceTravelled,
+                vehicleFinishTime
         );
 
         LinearLayoutManager layoutManagerForRecyclerView = new LinearLayoutManager(requireActivity());
@@ -85,7 +84,7 @@ public class FragmentRace extends Fragment {
     private void subscribeObjectsForEvents() {
 
         Publisher vehicleRaceManagerPublisher =
-               this.initializeObjectsControllerCommand.getRaceManager().getPublisher();
+                Singletone.raceManager.getPublisher();
 
 //        Publisher vehicleBufferPublisher =
 //                this.initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer().getPublisher();
@@ -93,9 +92,11 @@ public class FragmentRace extends Fragment {
 //        Publisher vehicleStartListPublisher =
 //                this.initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getPublisher();
 
+
+
         vehicleRaceManagerPublisher.subscribeForEvent(
-                this.trackLength,
-                EventType.RACE_MANAGER_VALUE_CHANGED_TRACK_LENGTH
+                this.raceTimer,
+                EventType.RACE_MANAGER_VALUE_CHANGED_RACE_TIMER
         );
 
 //        vehicleBufferPublisher.subscribeForEvent(

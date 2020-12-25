@@ -7,5 +7,5 @@ public interface Observable {
 
     ModelCommand prepareCommandForUpdate(Event event, Subscriber subscriber);
 
-    void setTimerPublisher(Publisher timerPublisher);
+    void setPublisher(Publisher timerPublisher);
 }

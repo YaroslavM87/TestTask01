@@ -42,6 +42,6 @@ public class NotifySubscribersVehicleValuesChangedModelCommand extends ModelComm
     }
 
     @Override
-    public void setTimerPublisher(Publisher timerPublisher) {
+    public void setPublisher(Publisher timerPublisher) {
     }
 }

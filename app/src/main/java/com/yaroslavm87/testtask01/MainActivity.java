@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 import com.yaroslavm87.testtask01.View.FragmentPreRace;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeViewGroupElements() {
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_vehicles_available, FragmentPreRace.class, null)
+                .add(R.id.fragment, FragmentPreRace.class, null)
                 .addToBackStack(null)
                 .commit();
     }

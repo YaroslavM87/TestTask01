@@ -16,7 +16,7 @@ public class SetPublisherToObservableModelCommand extends ModelCommand {
 
     @Override
     public void execute() {
-        this.observable.setTimerPublisher(this.publisher);
+        this.observable.setPublisher(this.publisher);
         super.markAsExecuted();
     }
 }

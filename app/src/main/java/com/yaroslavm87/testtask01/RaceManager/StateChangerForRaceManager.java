@@ -12,6 +12,7 @@ class StateChangerForRaceManager {
 
             case RACE_STARTED:
                 nextRaceManagerState = new StateRaceForRaceManager(raceManager);
+                raceManager.getPublisher().notifyEventHappened(event);
                 break;
 
             case RACE_ENDED:

@@ -13,15 +13,13 @@ public class InitializeObjectsControllerCommand extends ControllerCommand {
         this.raceManager = new RaceManager();
 
         Publisher vehicleRaceManagerPublisher = new Publisher();
-        new SetPublisherToObservableModelCommand(raceManager, vehicleRaceManagerPublisher).execute();
+        new SetPublisherToObservableModelCommand(this.raceManager, vehicleRaceManagerPublisher).execute();
 
         Publisher vehicleBufferPublisher = new Publisher();
         new SetPublisherToObservableModelCommand(this.raceManager.getVehicleBuffer(), vehicleBufferPublisher).execute();
 
         Publisher vehicleStartListPublisher = new Publisher();
         new SetPublisherToObservableModelCommand(this.raceManager.getVehicleStartList(), vehicleStartListPublisher).execute();
-
-        this.raceManager.getState().performTaskDefinedByState();
     }
 
     public RaceManager getRaceManager() {

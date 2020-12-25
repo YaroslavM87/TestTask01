@@ -10,6 +10,8 @@
 
     <string name="vehicle_distance_travelled">DISTANCE TRAVELLED</string>
 
+    <string name="vehicle_finish_time">FINISH TIME</string>
+
     <string name="start_list_header">START LIST</string>
 
     <string name="param_increase"> + </string>

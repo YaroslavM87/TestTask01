@@ -40,7 +40,7 @@ public class VehicleBuffer implements Observable {
         this.publisher.notifyEventHappened(this, new VehicleBufferVehicleDeleted()); //TODO: add new command to clear textViews
     }
 
-    public void setTimerPublisher(Publisher timerPublisher) {
+    public void setPublisher(Publisher timerPublisher) {
         this.publisher = timerPublisher;
     }
 

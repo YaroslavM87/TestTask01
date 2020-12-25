@@ -15,25 +15,35 @@ import java.util.ArrayList;
 
 public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<AdapterForRecyclerViewRaceList.ViewHolder> {
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder{
 
         private ActivityTextView VHVehicleType;
         private ActivityTextView vehicleCurrentSpeedAndStatus;
         private ActivityTextView VHVehicleDistanceTravelled;
+        private ActivityTextView VHVehicleFinishTime;
 
         ViewHolder(
                 @NonNull View itemView,
                 int vehicleType,
                 int vehicleCurrentSpeedAndStatus,
-                int vehicleDistanceTravelled
+                int vehicleDistanceTravelled,
+                int vehicleFinishTime
         ) {
+
             super(itemView);
+
             this.VHVehicleType = new TextViewVehicleType(itemView.findViewById(vehicleType));
+
             this.vehicleCurrentSpeedAndStatus = new TextViewVehicleSpeed(
                     itemView.findViewById(vehicleCurrentSpeedAndStatus)
             );
+
             this.VHVehicleDistanceTravelled = new TextViewVehicleDistanceTravelled(
                     itemView.findViewById(vehicleDistanceTravelled)
+            );
+
+            this.VHVehicleFinishTime = new TextViewRaceTimer(
+                    itemView.findViewById(vehicleFinishTime)
             );
         }
     }
@@ -43,19 +53,22 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
     private int vehicleType;
     private int vehicleCurrentSpeedAndStatus;
     private int vehicleDistanceTravelled;
+    private int vehicleFinishTime;
 
     public AdapterForRecyclerViewRaceList(
             ArrayList<Vehicle> itemListForRecyclerView,
             int layout,
             int vehicleType,
             int vehicleCurrentSpeedAndStatus,
-            int vehicleDistanceTravelled
+            int vehicleDistanceTravelled,
+            int vehicleFinishTime
     ) {
         this.itemListForRecyclerView = itemListForRecyclerView;
         this.layout = layout;
         this.vehicleType = vehicleType;
         this.vehicleCurrentSpeedAndStatus = vehicleCurrentSpeedAndStatus;
         this.vehicleDistanceTravelled = vehicleDistanceTravelled;
+        this.vehicleFinishTime = vehicleFinishTime;
     }
 
     @NonNull
@@ -66,7 +79,8 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
                 view,
                 this.vehicleType,
                 this.vehicleCurrentSpeedAndStatus,
-                this.vehicleDistanceTravelled
+                this.vehicleDistanceTravelled,
+                this.vehicleFinishTime
         );
     }
 
@@ -88,6 +102,11 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
         vehiclePublisher.subscribeForEvent(
                 holder.VHVehicleDistanceTravelled,
                 EventType.VEHICLE_VALUE_CHANGED_DISTANCE_TRAVELLED
+        );
+
+        vehiclePublisher.subscribeForEvent(
+                holder.VHVehicleFinishTime,
+                EventType.VEHICLE_VALUE_CHANGED_FINISH_TIME
         );
     }
 

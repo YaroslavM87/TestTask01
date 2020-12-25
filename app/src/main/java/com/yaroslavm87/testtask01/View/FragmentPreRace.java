@@ -16,11 +16,13 @@ import com.yaroslavm87.testtask01.Controller.AddNewVehicleControllerCommand;
 import com.yaroslavm87.testtask01.Controller.AddVehicleToStartListControllerCommand;
 import com.yaroslavm87.testtask01.Controller.InitializeObjectsControllerCommand;
 import com.yaroslavm87.testtask01.Controller.SetTrackLengthControllerCommand;
+import com.yaroslavm87.testtask01.Controller.StartRaceControllerCommand;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
+import com.yaroslavm87.testtask01.Notifications.Subscriber;
 import com.yaroslavm87.testtask01.R;
 
-public class FragmentPreRace extends Fragment {
+public class FragmentPreRace extends Fragment implements Subscriber {
 
     ActivityTextView vehicleBufferVehicleType;
     TextViewVehicleSpeed vehicleBufferVehicleSpeed;
@@ -33,6 +35,7 @@ public class FragmentPreRace extends Fragment {
     ButtonVehicleValueConfig increaseVehicleFromBufferValue;
     Button reduceTrackLength;
     Button increaseTrackLength;
+    Button startRace;
 
     RecyclerView recyclerViewVehicleTypes;
     AdapterForRecyclerViewVehicleTypes adapterForRecyclerViewVehicleTypes;
@@ -91,6 +94,13 @@ public class FragmentPreRace extends Fragment {
         this.increaseTrackLength.setOnClickListener(
                 v -> increaseTrackLength()
         );
+
+        this.startRace = requireView().findViewById(R.id.startRace);
+        this.startRace.setOnClickListener(
+                v -> new StartRaceControllerCommand(
+                        initializeObjectsControllerCommand.getRaceManager()
+                ).execute()
+        );
     }
 
     private void initializeTextViews() {
@@ -115,6 +125,9 @@ public class FragmentPreRace extends Fragment {
 
         this.trackLength = new TextViewTrackLength(
                 (TextView) requireView().findViewById(R.id.trackLength)
+        );
+        this.trackLength.receiveUpdate(
+                this.initializeObjectsControllerCommand.getRaceManager().getTrackLength()
         );
     }
 
@@ -183,6 +196,11 @@ public class FragmentPreRace extends Fragment {
         vehicleRaceManagerPublisher.subscribeForEvent(
                 this.trackLength,
                 EventType.RACE_MANAGER_VALUE_CHANGED_TRACK_LENGTH
+        );
+
+        vehicleRaceManagerPublisher.subscribeForEvent(
+                this,
+                EventType.RACE_STARTED
         );
 
         vehicleBufferPublisher.subscribeForEvent(
@@ -269,7 +287,16 @@ public class FragmentPreRace extends Fragment {
         ).execute();
     }
 
-    public void getVehicleList() {
+    public void replaceFragment() {
+        getParentFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment, FragmentRace.class, null)
+                .addToBackStack(null)
+                .commit();
+    }
 
+    @Override
+    public void receiveUpdate(Object updatedValue) {
+        replaceFragment();
     }
 }

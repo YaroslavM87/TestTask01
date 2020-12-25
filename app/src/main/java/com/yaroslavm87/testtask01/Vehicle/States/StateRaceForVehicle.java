@@ -50,7 +50,7 @@ public class StateRaceForVehicle extends VehicleState {
 
                 } else {
 
-                    if(checkIfVehicleIsAccelerating()) {
+                    if(checkIfVehicleIsNotReachedMaxSpeed()) {
                         accelerateVehicle();
                     }
 
@@ -65,7 +65,7 @@ public class StateRaceForVehicle extends VehicleState {
         raceTimer.scheduleAtFixedRate(timerTask, 100, 100);
     }
 
-    private boolean checkIfVehicleIsAccelerating() {
+    private boolean checkIfVehicleIsNotReachedMaxSpeed() {
         return super.vehicle.getCurrentSpeed() < super.vehicle.getMaxSpeed();
     }
 
@@ -79,7 +79,7 @@ public class StateRaceForVehicle extends VehicleState {
     }
 
     private void decelerateVehicle() {
-        double result = super.vehicle.getCurrentSpeed() - 3;
+        double result = super.vehicle.getCurrentSpeed() - 4;
 
         if(result > 0) {
             new SetVehicleCurrentSpeedModelCommand(super.vehicle, result).execute();
@@ -120,9 +120,16 @@ public class StateRaceForVehicle extends VehicleState {
                     super.vehicle.getRaceManager().getTrackLength()
             ).execute(); // does not relate to the name of the method
 
-            new MakeVehicleFinishedModelCommand(super.vehicle).execute();
             super.vehicle.getRaceManager().countVehicleAsFinished();
+
+            new SetVehicleFinishTimeModelCommand(
+                    super.vehicle,
+                    super.vehicle.getRaceManager().getRaceTimer().getRaceTimerValue()
+            ).execute();
+
             raceTimer.cancel();
+
+            new MakeVehicleFinishedModelCommand(super.vehicle).execute();
         }
     }
 

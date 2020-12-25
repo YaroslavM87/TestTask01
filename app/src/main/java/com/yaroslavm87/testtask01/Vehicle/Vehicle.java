@@ -34,6 +34,7 @@ public abstract class Vehicle implements Observable {
     protected double vehicleCurrentSpeed;
     protected double vehiclePunctureProbability;
     protected double vehicleDistanceTravelledInMeters;
+    protected long vehicleFinishTime;
     protected VehicleState vehicleState;
     protected RaceManager raceManager;
     protected Publisher publisher;
@@ -46,9 +47,11 @@ public abstract class Vehicle implements Observable {
 
     public abstract void setCurrentSpeed(double vehicleCurrentSpeed);
 
+    public abstract void setPunctureProbability(double vehiclePunctureProbability);
+
     public abstract void setDistanceTravelledInMeters(double vehicleDistanceTravelledInMeters);
 
-    public abstract void setPunctureProbability(double vehiclePunctureProbability);
+    public abstract void setFinishTime(long finishTime);
 
     abstract void setState(VehicleState vehicleState);
 
@@ -66,12 +69,16 @@ public abstract class Vehicle implements Observable {
         return this.vehicleCurrentSpeed;
     }
 
+    public double getPunctureProbability() {
+        return this.vehiclePunctureProbability;
+    }
+
     public double getDistanceTravelledInMeters() {
         return this.vehicleDistanceTravelledInMeters;
     }
 
-    public double getPunctureProbability() {
-        return this.vehiclePunctureProbability;
+    public long getFinishTime() {
+        return this.vehicleFinishTime;
     }
 
     public VehicleState getState() {

@@ -19,7 +19,7 @@ public class PassRaceManagerValueRaceTimerToSubscriberModelCommand extends Model
 
     @Override
     public void execute() {
-        Double raceTimerValue = this.sender.getRaceTimerValue();
+        Long raceTimerValue = this.sender.getRaceTimerValue();
         receiver.receiveUpdate(raceTimerValue);
         super.markAsExecuted();
     }
