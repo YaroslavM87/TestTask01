@@ -23,7 +23,7 @@ public class VehicleStateChanger {
 
             case INITIALIZED_AND_READY_TO_START:
                 if(event.getType() == EventType.RACE_STARTED) {
-                    nextVehicleState = new Race(vehicle);
+                    nextVehicleState = new StateRaceForVehicle(vehicle);
                     break;
                 }
 
@@ -39,7 +39,7 @@ public class VehicleStateChanger {
 
             case GOT_PUNCTURE:
                 if(event.getType() == EventType.VEHICLE_RETURNED_TO_RACE) {
-                    nextVehicleState = new Race(vehicle);
+                    nextVehicleState = new StateRaceForVehicle(vehicle);
                     break;
                 }
         }

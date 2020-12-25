@@ -5,8 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.yaroslavm87.testtask01.Notifications.Events.EventType;
-import com.yaroslavm87.testtask01.Notifications.Publisher;
+
 import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 
 import java.util.ArrayList;
@@ -18,22 +17,17 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
         // implements View.OnClickListener
 
         private ActivityTextView VHVehicleType;
-        private ActivityTextView VHVehicleSpeed;
-        private ActivityTextView VHVehicleDistanceTravelled;
+        private ActivityTextView VHVehicleMaxSpeed;
 
         ViewHolder(
                 @NonNull View itemView,
                 int vehicleType,
-                int vehicleSpeed,
-                int vehicleDistanceTravelled
+                int vehicleMaxSpeed
         ) {
             super(itemView);
             //itemView.setOnClickListener(this);
-            this.VHVehicleType = new VehicleTypeTextView(itemView.findViewById(vehicleType));
-            this.VHVehicleSpeed = new TextViewVehicleSpeed(itemView.findViewById(vehicleSpeed));
-            this.VHVehicleDistanceTravelled = new VehicleDistanceTravelledTextView(
-                    itemView.findViewById(vehicleDistanceTravelled)
-            );
+            this.VHVehicleType = new TextViewVehicleType(itemView.findViewById(vehicleType));
+            this.VHVehicleMaxSpeed = new TextViewVehicleSpeed(itemView.findViewById(vehicleMaxSpeed));
         }
 
 //        @Override
@@ -48,22 +42,18 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
     //private OnEntryClickListener onEntryClickListener;
     private int layout;
     private int vehicleType;
-    private int vehicleSpeed;
-    private int vehicleDistanceTravelled;
+    private int vehicleMaxSpeed;
 
     public AdapterForRecyclerViewStartList(
             ArrayList<Vehicle> itemListForRecyclerView,
             int layout,
             int vehicleType,
-            int vehicleSpeed,
-            int vehicleDistanceTravelled,
-            Publisher raceManagerPublisher
+            int vehicleMaxSpeed
     ) {
         this.itemListForRecyclerView = itemListForRecyclerView;
         this.layout = layout;
         this.vehicleType = vehicleType;
-        this.vehicleSpeed = vehicleSpeed;
-        this.vehicleDistanceTravelled = vehicleDistanceTravelled;
+        this.vehicleMaxSpeed = vehicleMaxSpeed;
     }
 
     @NonNull
@@ -73,34 +63,15 @@ public class AdapterForRecyclerViewStartList extends RecyclerView.Adapter<Adapte
         return new ViewHolder(
                 view,
                 this.vehicleType,
-                this.vehicleSpeed,
-                this.vehicleDistanceTravelled
+                this.vehicleMaxSpeed
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Vehicle vehicle = itemListForRecyclerView.get(position);
-        Publisher vehiclePublisher = vehicle.getPublisher();
-
         holder.VHVehicleType.receiveUpdate(vehicle.getVehicleType());
-//        vehiclePublisher.subscribeForEvent(
-//                holder.VHVehicleType,
-//                EventType.VEHICLE_TYPE_CHANGED
-//        );
-
-        holder.VHVehicleSpeed.receiveUpdate(vehicle.getCurrentSpeed());
-        vehiclePublisher.subscribeForEvent(
-                holder.VHVehicleSpeed,
-                EventType.VEHICLE_VALUE_CHANGED_CURRENT_SPEED
-        );
-
-        holder.VHVehicleDistanceTravelled.receiveUpdate(vehicle.getDistanceTravelledInMeters());
-        vehiclePublisher.subscribeForEvent(
-                holder.VHVehicleDistanceTravelled,
-                EventType.VEHICLE_VALUE_CHANGED_DISTANCE_TRAVELLED
-        );
+        holder.VHVehicleMaxSpeed.receiveUpdate(vehicle.getMaxSpeed());
     }
 
     @Override

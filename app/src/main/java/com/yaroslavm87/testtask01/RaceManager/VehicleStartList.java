@@ -1,7 +1,7 @@
 package com.yaroslavm87.testtask01.RaceManager;
 
 import com.yaroslavm87.testtask01.ModelCommands.ModelCommand;
-import com.yaroslavm87.testtask01.ModelCommands.PassUpdateFromVehicleListToSubscriber;
+import com.yaroslavm87.testtask01.ModelCommands.PassUpdateFromVehicleListToSubscriberModelCommand;
 import com.yaroslavm87.testtask01.Notifications.Events.Event;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Events.VehicleStartListNewVehicleAdded;
@@ -35,12 +35,12 @@ public class VehicleStartList implements Observable {
 
     @Override
     public ModelCommand prepareCommandForUpdate(Event event, Subscriber subscriber) {
-        return new PassUpdateFromVehicleListToSubscriber(this, subscriber);
+        return new PassUpdateFromVehicleListToSubscriberModelCommand(this, subscriber);
     }
 
     @Override
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public void setTimerPublisher(Publisher timerPublisher) {
+        this.publisher = timerPublisher;
     }
 
     public Vehicle getVehicleFromStartList(int index) {

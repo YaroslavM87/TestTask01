@@ -1,7 +1,7 @@
 package com.yaroslavm87.testtask01.RaceManager;
 
 import com.yaroslavm87.testtask01.ModelCommands.ModelCommand;
-import com.yaroslavm87.testtask01.ModelCommands.NotifySubscribersVehicleValuesChanged;
+import com.yaroslavm87.testtask01.ModelCommands.NotifySubscribersVehicleValuesChangedModelCommand;
 import com.yaroslavm87.testtask01.Notifications.Events.Event;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Events.VehicleBufferNewVehicleAdded;
@@ -21,7 +21,7 @@ public class VehicleBuffer implements Observable {
 
     @Override
     public ModelCommand prepareCommandForUpdate(Event event, Subscriber subscriber) {
-        return new NotifySubscribersVehicleValuesChanged(this, event);
+        return new NotifySubscribersVehicleValuesChangedModelCommand(this, event);
     }
 
     public void addVehicleToBuffer(Vehicle vehicle) {
@@ -40,8 +40,8 @@ public class VehicleBuffer implements Observable {
         this.publisher.notifyEventHappened(this, new VehicleBufferVehicleDeleted()); //TODO: add new command to clear textViews
     }
 
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public void setTimerPublisher(Publisher timerPublisher) {
+        this.publisher = timerPublisher;
     }
 
     public Publisher getPublisher() {

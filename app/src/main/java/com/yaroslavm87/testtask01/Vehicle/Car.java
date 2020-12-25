@@ -77,8 +77,8 @@ public class Car extends Vehicle {
     }
 
     @Override
-    public void setPublisher(Publisher publisher) {
-        super.publisher = publisher;
+    public void setTimerPublisher(Publisher timerPublisher) {
+        super.publisher = timerPublisher;
     }
 
     public void setAmountOfPassengers(int amountOfPassengers) {
@@ -90,7 +90,7 @@ public class Car extends Vehicle {
         switch(event.getType()) {
 
             case VEHICLE_TYPE_CHANGED:
-                return new PassVehicleTypeToSubscriber(
+                return new PassVehicleTypeToSubscriberModelCommand(
                         this, subscriber
                 );
 
@@ -105,7 +105,7 @@ public class Car extends Vehicle {
                 );
 
             case VEHICLE_VALUE_CHANGED_PUNCTURE_PROBABILITY:
-                return new PassVehicleValuePunctureProbabilityToSubscriber(
+                return new PassVehicleValuePunctureProbabilityToSubscriberModelCommand(
                         this, subscriber
                 );
 
@@ -115,7 +115,7 @@ public class Car extends Vehicle {
                 );
 
             case VEHICLE_VALUE_CHANGED_STATE:
-                return new PassVehicleValueStateToSubscriber(
+                return new PassVehicleValueStateToSubscriberModelCommand(
                         this, subscriber
                 );
 

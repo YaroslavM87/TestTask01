@@ -1,6 +1,6 @@
 package com.yaroslavm87.testtask01.Vehicle.States;
 
-import com.yaroslavm87.testtask01.ModelCommands.ReturnVehicleToRace;
+import com.yaroslavm87.testtask01.ModelCommands.ReturnVehicleToRaceModelCommand;
 import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 
 import java.util.Timer;
@@ -26,7 +26,7 @@ public class GetPuncture extends VehicleState {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                new ReturnVehicleToRace(vehicle).execute();
+                new ReturnVehicleToRaceModelCommand(vehicle).execute();
             }
         };
         Timer repairingTimer = new Timer();

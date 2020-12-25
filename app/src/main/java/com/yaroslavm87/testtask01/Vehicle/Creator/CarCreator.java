@@ -1,9 +1,9 @@
 package com.yaroslavm87.testtask01.Vehicle.Creator;
 
-import com.yaroslavm87.testtask01.ModelCommands.SetPublisherToObservable;
-import com.yaroslavm87.testtask01.ModelCommands.SetVehicleMaxSpeedModelCommand;
-import com.yaroslavm87.testtask01.ModelCommands.SetVehiclePunctureProbability;
-import com.yaroslavm87.testtask01.ModelCommands.SetVehicleRaceManager;
+import com.yaroslavm87.testtask01.ModelCommands.SetPublisherToObservableModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.SetVehicleMaxSpeedModelCommandModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.SetVehiclePunctureProbabilityModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.SetVehicleRaceManagerModelCommand;
 import com.yaroslavm87.testtask01.Vehicle.ModelCommandSetVehicleState;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.RaceManager.RaceManager;
@@ -20,11 +20,11 @@ public class CarCreator extends VehicleCreator {
     @Override
     public Vehicle create() {
         Car newCar = new Car();
-        new SetVehicleRaceManager(newCar, super.raceManager).execute();
-        new SetPublisherToObservable(newCar, super.publisher).execute();
+        new SetVehicleRaceManagerModelCommand(newCar, super.raceManager).execute();
+        new SetPublisherToObservableModelCommand(newCar, super.publisher).execute();
         new ModelCommandSetVehicleState(newCar, new Stateless(newCar)).execute();
-        new SetVehicleMaxSpeedModelCommand(newCar, 80).execute();
-        new SetVehiclePunctureProbability(newCar, 0.7).execute();
+        new SetVehicleMaxSpeedModelCommandModelCommand(newCar, 80).execute();
+        new SetVehiclePunctureProbabilityModelCommand(newCar, 0.7).execute();
         return newCar;
     }
 }

@@ -9,12 +9,12 @@ import java.util.List;
 
 public class TextViewVehicleSpeed extends ActivityTextView implements View.OnClickListener {
 
-    private ButtonConfig.TypeOfTextViewClicked typeOfTextViewClicked;
+    private ButtonVehicleValueConfig.TypeOfTextViewClicked typeOfTextViewClicked;
     private List<OnActivityTextViewClickListener> listenersList;
 
     public TextViewVehicleSpeed(TextView textView) {
         super(textView);
-        this.typeOfTextViewClicked = ButtonConfig.TypeOfTextViewClicked.VEHICLE_MAX_SPEED;
+        this.typeOfTextViewClicked = ButtonVehicleValueConfig.TypeOfTextViewClicked.VEHICLE_MAX_SPEED;
         this.listenersList = new ArrayList<>(2);
     }
 
@@ -26,7 +26,7 @@ public class TextViewVehicleSpeed extends ActivityTextView implements View.OnCli
 
         if (updatedValue instanceof String) {
             if(updatedValue != "") {
-                textViewValue = "Max speed: ".concat((String)updatedValue);
+                textViewValue = "".concat((String)updatedValue);
 
             } else {
                 textViewValue = "";
@@ -36,7 +36,7 @@ public class TextViewVehicleSpeed extends ActivityTextView implements View.OnCli
             double d = (Double) updatedValue;
 
             if(d >= 0.0) {
-                textViewValue = String.format("Max speed:%n%3.1f", d);
+                textViewValue = String.format("%3.1f", d);
 
             } else {
                 textViewValue = "";
@@ -44,7 +44,7 @@ public class TextViewVehicleSpeed extends ActivityTextView implements View.OnCli
 
         } else {
             if(updatedValue != null) {
-                textViewValue = "Max speed: ".concat(updatedValue.toString());
+                textViewValue = "".concat(updatedValue.toString());
 
             } else {
                 textViewValue = "";
@@ -60,12 +60,12 @@ public class TextViewVehicleSpeed extends ActivityTextView implements View.OnCli
             l.onActivityTextViewClick(this.typeOfTextViewClicked);
     }
 
-    public ButtonConfig.TypeOfTextViewClicked getTypeOfTextViewClicked() {
+    public ButtonVehicleValueConfig.TypeOfTextViewClicked getTypeOfTextViewClicked() {
         return typeOfTextViewClicked;
     }
 
     public interface OnActivityTextViewClickListener {
-        void onActivityTextViewClick(ButtonConfig.TypeOfTextViewClicked typeOfTextViewClicked);
+        void onActivityTextViewClick(ButtonVehicleValueConfig.TypeOfTextViewClicked typeOfTextViewClicked);
     }
 
     public void setOnActivityTextViewClickListener(OnActivityTextViewClickListener listener) {

@@ -10,7 +10,7 @@
     </style>
 
     <style name="baseTextViewRecyclerViewTypeOfVehicleAvailable" parent="Widget.MaterialComponents.TextView">
-        <item name="android:layout_width">114dp</item>
+        <item name="android:layout_width">100dp</item>
         <item name="android:layout_marginStart">0dp</item>
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:layout_marginEnd">0dp</item>
@@ -33,7 +33,7 @@
         <item name="android:layout_marginBottom">0dp</item>
     </style>
 
-    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="buttonStyleBase" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">5dp</item>
@@ -48,7 +48,26 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="buttonConfigVehicleParams" parent="buttonStyleBase">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
 
+    <style name="buttonAddVehicle" parent="buttonStyleBase">
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">60dp</item>
+    </style>
 
+    <style name="buttonConfigTrackLength" parent="buttonStyleBase">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="buttonStartRace" parent="buttonStyleBase">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
 
 </resources>

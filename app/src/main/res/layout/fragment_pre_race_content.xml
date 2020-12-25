@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listOfVehiclesAvailable"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:baselineAligned="false"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleType"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehiclePunctureProb"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleAdditionalValue"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                >
+
+                <Button
+                    android:id="@+id/vehicleValueIncrease"
+                    style="@style/buttonConfigVehicleParams"
+                    android:text="@string/param_increase"
+                    app:backgroundTint="@color/colorBackgroundSecondary"
+                    app:elevation="0dp"
+                    app:iconTint="#FFFFFF"
+                    app:rippleColor="@color/colorButtonRipple"
+                    app:strokeColor="@color/colorButtonStroke"
+                    app:strokeWidth="1dp"
+                    />
+
+                <Button
+                    android:id="@+id/vehicleValueReduce"
+                    style="@style/buttonConfigVehicleParams"
+                    android:layout_gravity="center"
+                    android:text="@string/param_reduce"
+                    app:backgroundTint="@color/colorBackgroundSecondary"
+                    app:elevation="0dp"
+                    app:iconTint="#FFFFFF"
+                    app:rippleColor="@color/colorButtonRipple"
+                    app:strokeColor="@color/colorButtonStroke"
+                    app:strokeWidth="1dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <Button
+                    android:id="@+id/addNewVehicle"
+                    style="@style/buttonAddVehicle"
+                    android:text="@string/button_add"
+                    app:backgroundTint="@color/colorBackgroundSecondary"
+                    app:elevation="0dp"
+                    app:iconTint="#FFFFFF"
+                    app:rippleColor="@color/colorButtonRipple"
+                    app:strokeColor="@color/colorButtonStroke"
+                    app:strokeWidth="1dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/vehicleStartListTextView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@string/start_list_header"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewTypeHeader"
+            android:layout_width="0dp"
+            android:layout_weight="40"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@string/vehicle_type"
+            />
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewVehicleMaxSpeedHeader"
+            android:layout_width="0dp"
+            android:layout_weight="60"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@string/vehicle_max_speed"
+            />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vehicleStartList"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        >
+
+        <Button
+            android:id="@+id/trackLengthReduce"
+            style="@style/buttonConfigTrackLength"
+            android:text="@string/param_reduce"
+            app:backgroundTint="@color/colorBackgroundSecondary"
+            app:elevation="0dp"
+            app:iconTint="#FFFFFF"
+            app:rippleColor="@color/colorButtonRipple"
+            app:strokeColor="@color/colorButtonStroke"
+            app:strokeWidth="1dp"
+            />
+
+        <TextView
+            android:id="@+id/trackLength"
+            android:gravity="center"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            />
+
+        <Button
+            android:id="@+id/trackLengthIncrease"
+            style="@style/buttonConfigTrackLength"
+            android:text="@string/param_increase"
+            app:backgroundTint="@color/colorBackgroundSecondary"
+            app:elevation="0dp"
+            app:iconTint="#FFFFFF"
+            app:rippleColor="@color/colorButtonRipple"
+            app:strokeColor="@color/colorButtonStroke"
+            app:strokeWidth="1dp"
+            />
+
+        <Button
+            android:id="@+id/startRace"
+            style="@style/buttonStartRace"
+            android:layout_width="130dp"
+            android:text="@string/button_start"
+            app:backgroundTint="@color/colorBackgroundSecondary"
+            app:elevation="0dp"
+            app:iconTint="#FFFFFF"
+            app:rippleColor="@color/colorButtonRipple"
+            app:strokeColor="@color/colorButtonStroke"
+            app:strokeWidth="1dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+<!--    android:padding="10dp"-->
+<!--    android:layout_weight="39"-->
+
+    <!--    <LinearLayout-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_gravity="center" >-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/trackLengthReduce"-->
+<!--                    style="@style/ButtonStyle"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:onClick="reduceTrackLength"-->
+<!--                    android:text="-"-->
+<!--                    app:backgroundTint="@color/colorBackgroundSecondary"-->
+<!--                    app:elevation="0dp"-->
+<!--                    app:iconTint="#FFFFFF"-->
+<!--                    app:rippleColor="@color/colorButtonRipple"-->
+<!--                    app:strokeColor="@color/colorButtonStroke"-->
+<!--                    app:strokeWidth="1dp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/trackLength"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_width="90dp"-->
+<!--                    android:layout_height="40dp" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/trackLengthIncrease"-->
+<!--                    style="@style/ButtonStyle"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:onClick="increaseTrackLength"-->
+<!--                    android:text="+"-->
+<!--                    app:backgroundTint="@color/colorBackgroundSecondary"-->
+<!--                    app:elevation="0dp"-->
+<!--                    app:iconTint="#FFFFFF"-->
+<!--                    app:rippleColor="@color/colorButtonRipple"-->
+<!--                    app:strokeColor="@color/colorButtonStroke"-->
+<!--                    app:strokeWidth="1dp" />-->
+
+<!--            </LinearLayout>-->

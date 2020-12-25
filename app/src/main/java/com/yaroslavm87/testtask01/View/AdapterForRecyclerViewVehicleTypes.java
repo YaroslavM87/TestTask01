@@ -1,6 +1,5 @@
 package com.yaroslavm87.testtask01.View;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yaroslavm87.testtask01.R;
 import com.yaroslavm87.testtask01.Vehicle.VehicleType;
 
 import java.util.ArrayList;
@@ -24,14 +22,14 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
         ViewHolder(@NonNull View itemView, int textViewVehicleType, int textViewEmpty) {
             super(itemView);
             itemView.setOnClickListener(this);
-            this.textViewVehicleType = new VehicleTypeTextView(itemView.findViewById(textViewVehicleType));
+            this.textViewVehicleType = new TextViewVehicleType(itemView.findViewById(textViewVehicleType));
             this.textViewEmpty = itemView.findViewById(textViewEmpty);
         }
 
         @Override
         public void onClick(View v) {
             if (onEntryClickListener != null) {
-                onEntryClickListener.onEntryClick(v, getLayoutPosition());
+                onEntryClickListener.onEntryClick(getLayoutPosition());
             }
         }
     }
@@ -72,7 +70,7 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
     }
 
     public interface OnEntryClickListener {
-        void onEntryClick(View view, int position);
+        void onEntryClick(int position);
     }
 
     public void setOnEntryClickListener(OnEntryClickListener onEntryClickListener) {

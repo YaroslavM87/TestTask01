@@ -13,7 +13,7 @@ public class Publisher {
     private Map<EventType, List<Subscriber>> listsOfSubscribers;
 
     public Publisher() {
-        this.listsOfSubscribers = new HashMap<>(6);
+        this.listsOfSubscribers = new HashMap<>();
     }
 
     public void subscribeForEvent(EventType eventType, Subscriber ...subscribers) {
