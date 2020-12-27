@@ -11,10 +11,23 @@
     <color name="colorAccent">#58598F</color>
 
     <color name="colorTextPrimary">#E0E0E0</color>
+
     <color name="colorTextSecond">#BF3219</color>
+
     <color name="colorTextThird">#7171B5</color>
+
     <color name="colorBackgroundPrimary">#CACACA</color>
+
     <color name="colorBackgroundSecondary">#47488A</color>
+
     <color name="colorButtonStroke">#58598F</color>
+
     <color name="colorButtonRipple">#7171B5</color>
+
+    <color name="textViewColorVehicleRaceState">#448AFF</color>
+
+    <color name="textViewColorVehicleGotPunctureState">#FF4081</color>
+
+    <color name="textViewColorVehicleFinishedState">#69F0AE</color>
+
 </resources>

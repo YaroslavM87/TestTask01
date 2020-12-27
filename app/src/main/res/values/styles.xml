@@ -64,16 +64,19 @@
         <item name="android:layout_height">60dp</item>
     </style>
 
-    <style name="buttonConfigTrackLength" parent="buttonStyleBase">
-        <item name="android:layout_width">50dp</item>
+    <style name="buttonGoToSetTrackLength" parent="buttonStyleBase">
+        <item name="android:layout_width">180dp</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="buttonConfigTrackLength" parent="buttonStyleBase">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">90dp</item>
     </style>
 
     <style name="buttonStartRace" parent="buttonStyleBase">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">90dp</item>
     </style>
 
 </resources>

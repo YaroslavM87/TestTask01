@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,34 +14,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yaroslavm87.testtask01.Controller.AddNewVehicleControllerCommand;
 import com.yaroslavm87.testtask01.Controller.AddVehicleToStartListControllerCommand;
 import com.yaroslavm87.testtask01.Controller.InitializeObjectsControllerCommand;
-import com.yaroslavm87.testtask01.Controller.SetTrackLengthControllerCommand;
-import com.yaroslavm87.testtask01.Controller.StartRaceControllerCommand;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
-import com.yaroslavm87.testtask01.Notifications.Subscriber;
 import com.yaroslavm87.testtask01.R;
 
-public class FragmentPreRace extends Fragment implements Subscriber {
+public class FragmentSetStartList extends Fragment {
 
     ActivityTextView vehicleBufferVehicleType;
     TextViewVehicleSpeed vehicleBufferVehicleSpeed;
     ActivityTextView vehicleBufferVehiclePunctureProbability;
     ActivityTextView vehicleBufferVehicleAdditionalValue;
-    ActivityTextView trackLength;
 
     Button addNewVehicle;
     ButtonVehicleValueConfig reduceVehicleFromBufferValue;
     ButtonVehicleValueConfig increaseVehicleFromBufferValue;
-    Button reduceTrackLength;
-    Button increaseTrackLength;
-    Button startRace;
+    Button goToSetTrackLength;
 
     RecyclerView recyclerViewVehicleTypes;
     AdapterForRecyclerViewVehicleTypes adapterForRecyclerViewVehicleTypes;
 
     RecyclerView recyclerViewVehicleStartList;
     AdapterForRecyclerViewStartList adapterForRecyclerViewStartList;
-    AdapterNotifier adapterNotifier;
+    OnEventAdapterNotifier onEventAdapterNotifier;
 
     int layoutForRecyclerView;
 
@@ -51,7 +44,7 @@ public class FragmentPreRace extends Fragment implements Subscriber {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_pre_race_content, container, false);
+        return inflater.inflate(R.layout.fragment_set_vehisle_start_list_content, container, false);
     }
 
     @Override
@@ -85,21 +78,9 @@ public class FragmentPreRace extends Fragment implements Subscriber {
                 v -> defineActionWhenClickButtonIncreaseVehicleFromBufferValue()
         );
 
-        this.reduceTrackLength = requireView().findViewById(R.id.trackLengthReduce);
-        this.reduceTrackLength.setOnClickListener(
-                v -> reduceTrackLength()
-        );
-
-        this.increaseTrackLength = requireView().findViewById(R.id.trackLengthIncrease);
-        this.increaseTrackLength.setOnClickListener(
-                v -> increaseTrackLength()
-        );
-
-        this.startRace = requireView().findViewById(R.id.startRace);
-        this.startRace.setOnClickListener(
-                v -> new StartRaceControllerCommand(
-                        initializeObjectsControllerCommand.getRaceManager()
-                ).execute()
+        this.goToSetTrackLength = requireView().findViewById(R.id.goToSetTrackLength);
+        this.goToSetTrackLength.setOnClickListener(
+                v -> replaceFragment()
         );
     }
 
@@ -121,13 +102,6 @@ public class FragmentPreRace extends Fragment implements Subscriber {
 
         this.vehicleBufferVehicleAdditionalValue = new TextViewVehicleAdditionalValue(
                 (TextView) requireView().findViewById(R.id.vehicleBufferVehicleAdditionalValue)
-        );
-
-        this.trackLength = new TextViewTrackLength(
-                (TextView) requireView().findViewById(R.id.trackLength)
-        );
-        this.trackLength.receiveUpdate(
-                this.initializeObjectsControllerCommand.getRaceManager().getTrackLength()
         );
     }
 
@@ -176,7 +150,7 @@ public class FragmentPreRace extends Fragment implements Subscriber {
 
         LinearLayoutManager layoutManagerForRecyclerView = new LinearLayoutManager(requireActivity());
 
-        this.adapterNotifier = new AdapterNotifier(adapterForRecyclerViewStartList);
+        this.onEventAdapterNotifier = new OnEventAdapterNotifier(adapterForRecyclerViewStartList);
 
         this.recyclerViewVehicleStartList.setAdapter(adapterForRecyclerViewStartList);
         this.recyclerViewVehicleStartList.setLayoutManager(layoutManagerForRecyclerView);
@@ -184,24 +158,11 @@ public class FragmentPreRace extends Fragment implements Subscriber {
 
     private void subscribeObjectsForEvents() {
 
-        Publisher vehicleRaceManagerPublisher =
-               this.initializeObjectsControllerCommand.getRaceManager().getPublisher();
-
         Publisher vehicleBufferPublisher =
                 this.initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer().getPublisher();
 
         Publisher vehicleStartListPublisher =
                 this.initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getPublisher();
-
-        vehicleRaceManagerPublisher.subscribeForEvent(
-                this.trackLength,
-                EventType.RACE_MANAGER_VALUE_CHANGED_TRACK_LENGTH
-        );
-
-        vehicleRaceManagerPublisher.subscribeForEvent(
-                this,
-                EventType.RACE_STARTED
-        );
 
         vehicleBufferPublisher.subscribeForEvent(
                 this.vehicleBufferVehicleType,
@@ -233,7 +194,7 @@ public class FragmentPreRace extends Fragment implements Subscriber {
         );
 
         vehicleStartListPublisher.subscribeForEvent(
-                this.adapterNotifier,
+                this.onEventAdapterNotifier,
                 EventType.VEHICLE_START_LIST_NEW_VEHICLE_ADDED,
                 EventType.VEHICLE_START_LIST_VEHICLE_DELETED
         );
@@ -273,30 +234,11 @@ public class FragmentPreRace extends Fragment implements Subscriber {
         ).execute();
     }
 
-    private void reduceTrackLength() {
-        new SetTrackLengthControllerCommand(
-                this.initializeObjectsControllerCommand.getRaceManager(),
-                -100
-        ).execute();
-    }
-
-    private void increaseTrackLength() {
-        new SetTrackLengthControllerCommand(
-                this.initializeObjectsControllerCommand.getRaceManager(),
-                100
-        ).execute();
-    }
-
     public void replaceFragment() {
         getParentFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.fragment, FragmentRace.class, null)
+                .replace(R.id.fragment, FragmentSetTrackLength.class, null)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    @Override
-    public void receiveUpdate(Object updatedValue) {
-        replaceFragment();
     }
 }

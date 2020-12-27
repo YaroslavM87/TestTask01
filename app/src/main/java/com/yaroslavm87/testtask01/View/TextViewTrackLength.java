@@ -18,7 +18,7 @@ public class TextViewTrackLength extends ActivityTextView {
         if (updatedValue instanceof String) {
 
             if(updatedValue != "") {
-                textViewValue = "Track length (m): ".concat((String)updatedValue);
+                textViewValue = "".concat((String)updatedValue);
 
             } else {
                 textViewValue = "";
@@ -28,7 +28,7 @@ public class TextViewTrackLength extends ActivityTextView {
             double d = (Double) updatedValue;
 
             if(d >= 0.0) {
-                textViewValue = String.format("Track length (m): %4.2f", d);
+                textViewValue = String.format("%4.2f", d);
 
             } else {
                 textViewValue = "";
@@ -36,7 +36,7 @@ public class TextViewTrackLength extends ActivityTextView {
 
         } else {
             if(updatedValue != null) {
-                textViewValue = "Track length (m): ".concat(updatedValue.toString());
+                textViewValue = "".concat(updatedValue.toString());
 
             } else {
                 textViewValue = "";

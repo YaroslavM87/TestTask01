@@ -26,10 +26,10 @@ public class VehicleStartList implements Observable {
     }
 
     public void addVehicleToStartList(Vehicle vehicle) {
-        if(vehicle != null) {
-            startList.add(vehicle);
-            currentEventType = EventType.VEHICLE_START_LIST_NEW_VEHICLE_ADDED;
-            publisher.notifyEventHappened(this, new VehicleStartListNewVehicleAdded());
+        if(vehicle != null & this.startList.size() <= 5) {
+            this.startList.add(vehicle);
+            this.currentEventType = EventType.VEHICLE_START_LIST_NEW_VEHICLE_ADDED;
+            this.publisher.notifyEventHappened(this, new VehicleStartListNewVehicleAdded());
         }
     }
 

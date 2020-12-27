@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         />
 
-<!--    android:name="com.yaroslavm87.testtask01.View.FragmentPreRace"-->
+<!--    android:name="com.yaroslavm87.testtask01.View.FragmentSetStartList"-->
 
 
 <!--    </androidx.fragment.app.FragmentContainerView>-->

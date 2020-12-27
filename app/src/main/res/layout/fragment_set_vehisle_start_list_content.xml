@@ -174,7 +174,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vehicleStartList"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
@@ -183,47 +183,15 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         android:layout_gravity="end"
         >
 
         <Button
-            android:id="@+id/trackLengthReduce"
-            style="@style/buttonConfigTrackLength"
-            android:text="@string/param_reduce"
-            app:backgroundTint="@color/colorBackgroundSecondary"
-            app:elevation="0dp"
-            app:iconTint="#FFFFFF"
-            app:rippleColor="@color/colorButtonRipple"
-            app:strokeColor="@color/colorButtonStroke"
-            app:strokeWidth="1dp"
-            />
-
-        <TextView
-            android:id="@+id/trackLength"
-            android:gravity="center"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
-            />
-
-        <Button
-            android:id="@+id/trackLengthIncrease"
-            style="@style/buttonConfigTrackLength"
-            android:text="@string/param_increase"
-            app:backgroundTint="@color/colorBackgroundSecondary"
-            app:elevation="0dp"
-            app:iconTint="#FFFFFF"
-            app:rippleColor="@color/colorButtonRipple"
-            app:strokeColor="@color/colorButtonStroke"
-            app:strokeWidth="1dp"
-            />
-
-        <Button
-            android:id="@+id/startRace"
-            style="@style/buttonStartRace"
-            android:layout_width="130dp"
-            android:text="@string/button_start"
+            android:id="@+id/goToSetTrackLength"
+            style="@style/buttonGoToSetTrackLength"
+            android:text="@string/set_track_length"
             app:backgroundTint="@color/colorBackgroundSecondary"
             app:elevation="0dp"
             app:iconTint="#FFFFFF"

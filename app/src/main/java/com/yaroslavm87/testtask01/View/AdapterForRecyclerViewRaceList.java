@@ -17,10 +17,11 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
-        private ActivityTextView VHVehicleType;
-        private ActivityTextView vehicleCurrentSpeedAndStatus;
-        private ActivityTextView VHVehicleDistanceTravelled;
-        private ActivityTextView VHVehicleFinishTime;
+        private ActivityTextView holderVehicleType;
+        private ActivityTextView holderVehicleCurrentSpeedAndStatus;
+        private ActivityTextView holderVehicleDistanceTravelled;
+        private ActivityTextView holderVehicleFinishTime;
+        private OnEventTextViewColorChanger onEventTextViewColorChanger;
 
         ViewHolder(
                 @NonNull View itemView,
@@ -32,18 +33,27 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
 
             super(itemView);
 
-            this.VHVehicleType = new TextViewVehicleType(itemView.findViewById(vehicleType));
+            this.holderVehicleType = new TextViewVehicleType(itemView.findViewById(vehicleType));
 
-            this.vehicleCurrentSpeedAndStatus = new TextViewVehicleSpeed(
+            this.holderVehicleCurrentSpeedAndStatus = new TextViewVehicleSpeed(
                     itemView.findViewById(vehicleCurrentSpeedAndStatus)
             );
 
-            this.VHVehicleDistanceTravelled = new TextViewVehicleDistanceTravelled(
+            this.holderVehicleDistanceTravelled = new TextViewVehicleDistanceTravelled(
                     itemView.findViewById(vehicleDistanceTravelled)
             );
 
-            this.VHVehicleFinishTime = new TextViewRaceTimer(
+            this.holderVehicleFinishTime = new TextViewRaceTimer(
                     itemView.findViewById(vehicleFinishTime)
+            );
+
+            this.onEventTextViewColorChanger = new OnEventTextViewColorChanger();
+
+            this.onEventTextViewColorChanger.addTextViewToList(
+                    this.holderVehicleType.getTextView(),
+                    this.holderVehicleCurrentSpeedAndStatus.getTextView(),
+                    this.holderVehicleDistanceTravelled.getTextView(),
+                    this.holderVehicleFinishTime.getTextView()
             );
         }
     }
@@ -90,24 +100,31 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
         Vehicle vehicle = itemListForRecyclerView.get(position);
         Publisher vehiclePublisher = vehicle.getPublisher();
 
-        holder.VHVehicleType.receiveUpdate(vehicle.getVehicleType());
+        holder.holderVehicleType.receiveUpdate(vehicle.getVehicleType());
 
-        holder.vehicleCurrentSpeedAndStatus.receiveUpdate(vehicle.getCurrentSpeed());
+        holder.holderVehicleCurrentSpeedAndStatus.receiveUpdate(vehicle.getCurrentSpeed());
         vehiclePublisher.subscribeForEvent(
-                holder.vehicleCurrentSpeedAndStatus,
+                holder.holderVehicleCurrentSpeedAndStatus,
                 EventType.VEHICLE_VALUE_CHANGED_CURRENT_SPEED
         );
 
-        holder.VHVehicleDistanceTravelled.receiveUpdate(vehicle.getDistanceTravelledInMeters());
+        holder.holderVehicleDistanceTravelled.receiveUpdate(vehicle.getDistanceTravelledInMeters());
         vehiclePublisher.subscribeForEvent(
-                holder.VHVehicleDistanceTravelled,
+                holder.holderVehicleDistanceTravelled,
                 EventType.VEHICLE_VALUE_CHANGED_DISTANCE_TRAVELLED
         );
 
         vehiclePublisher.subscribeForEvent(
-                holder.VHVehicleFinishTime,
+                holder.holderVehicleFinishTime,
                 EventType.VEHICLE_VALUE_CHANGED_FINISH_TIME
         );
+
+        vehiclePublisher.subscribeForEvent(
+                holder.onEventTextViewColorChanger,
+                EventType.VEHICLE_VALUE_CHANGED_STATE
+        );
+
+        holder.onEventTextViewColorChanger.receiveUpdate(vehicle.getState());
     }
 
     @Override

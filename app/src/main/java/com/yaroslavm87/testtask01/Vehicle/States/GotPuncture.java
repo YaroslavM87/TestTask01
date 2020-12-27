@@ -6,9 +6,9 @@ import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GetPuncture extends VehicleState {
+public class GotPuncture extends VehicleState {
 
-    public GetPuncture(Vehicle vehicle) {
+    public GotPuncture(Vehicle vehicle) {
         super(vehicle);
     }
 
@@ -23,13 +23,16 @@ public class GetPuncture extends VehicleState {
     }
 
     private void startRepairingTimer() {
+
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 new ReturnVehicleToRaceModelCommand(vehicle).execute();
             }
         };
+
         Timer repairingTimer = new Timer();
+
         repairingTimer.schedule(timerTask, 4000);
     }
 }

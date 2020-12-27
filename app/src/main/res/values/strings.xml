@@ -14,13 +14,15 @@
 
     <string name="start_list_header">START LIST</string>
 
-    <string name="param_increase"> + </string>
+    <string name="param_increase">+</string>
 
-    <string name="param_reduce"> - </string>
+    <string name="param_reduce">-</string>
 
-    <string name="button_add"> ADD </string>
+    <string name="button_add">ADD</string>
 
     <string name="set_track_length">SET TRACK LENGTH</string>
+
+    <string name="track_length">Track length (m)</string>
 
     <string name="button_start">START</string>
 

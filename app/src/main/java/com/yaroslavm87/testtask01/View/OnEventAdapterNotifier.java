@@ -3,11 +3,11 @@ package com.yaroslavm87.testtask01.View;
 import com.yaroslavm87.testtask01.Notifications.Subscriber;
 import com.yaroslavm87.testtask01.RaceManager.VehicleStartList;
 
-public class AdapterNotifier implements Subscriber {
+public class OnEventAdapterNotifier implements Subscriber {
 
     private AdapterForRecyclerViewStartList adapterForRecyclerViewStartList;
 
-    public AdapterNotifier(AdapterForRecyclerViewStartList adapterForRecyclerViewStartList) {
+    public OnEventAdapterNotifier(AdapterForRecyclerViewStartList adapterForRecyclerViewStartList) {
         this.adapterForRecyclerViewStartList = adapterForRecyclerViewStartList;
     }
 

@@ -12,7 +12,7 @@ public class StateRaceForVehicle extends VehicleState {
     private boolean vehicleGotPuncture;
 
     {
-        vehicleGotPuncture = false;
+        this.vehicleGotPuncture = false;
     }
 
     public StateRaceForVehicle(Vehicle vehicle) {
@@ -43,6 +43,7 @@ public class StateRaceForVehicle extends VehicleState {
                     if(checkIfVehicleHasSpeed()) {
                         decelerateVehicle();
                         calculateVehicleDistanceTraveled();
+                        performActionIfVehicleHasFinished();
 
                     } else {
                         makeVehicleGetPuncture();
@@ -79,7 +80,7 @@ public class StateRaceForVehicle extends VehicleState {
     }
 
     private void decelerateVehicle() {
-        double result = super.vehicle.getCurrentSpeed() - 4;
+        double result = super.vehicle.getCurrentSpeed() - 5;
 
         if(result > 0) {
             new SetVehicleCurrentSpeedModelCommand(super.vehicle, result).execute();
@@ -115,10 +116,13 @@ public class StateRaceForVehicle extends VehicleState {
                 super.vehicle.getDistanceTravelledInMeters() >=
                 super.vehicle.getRaceManager().getTrackLength()
         ) {
+
+            this.vehicleGotPuncture = true;
+
             new SetVehicleDistanceTravelledModelCommand(
                     super.vehicle,
                     super.vehicle.getRaceManager().getTrackLength()
-            ).execute(); // does not relate to the name of the method
+            ).execute();
 
             super.vehicle.getRaceManager().countVehicleAsFinished();
 

@@ -29,7 +29,7 @@ public class VehicleStateChanger {
 
             case RACE:
                 if(event.getType() == EventType.VEHICLE_GOT_PUNCTURE) {
-                    nextVehicleState = new GetPuncture(vehicle);
+                    nextVehicleState = new GotPuncture(vehicle);
                     break;
 
                 } else if (event.getType() == EventType.VEHICLE_FINISHED) {
