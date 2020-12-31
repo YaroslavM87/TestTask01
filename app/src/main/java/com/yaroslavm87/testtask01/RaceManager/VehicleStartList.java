@@ -20,13 +20,12 @@ public class VehicleStartList implements Observable {
     private EventType currentEventType;
     private int indexOfVehicleBeingRemoved;
 
-
     public VehicleStartList() {
         startList = new ArrayList<>();
     }
 
     public void addVehicleToStartList(Vehicle vehicle) {
-        if(vehicle != null & this.startList.size() <= 5) {
+        if(vehicle != null & this.startList.size() < 5) {
             this.startList.add(vehicle);
             this.currentEventType = EventType.VEHICLE_START_LIST_NEW_VEHICLE_ADDED;
             this.publisher.notifyEventHappened(this, new VehicleStartListNewVehicleAdded());
@@ -44,39 +43,35 @@ public class VehicleStartList implements Observable {
     }
 
     public Vehicle getVehicleFromStartList(int index) {
-        return startList.get(index);
+        return this.startList.get(index);
     }
 
     public void deleteVehicleFromStartList(Vehicle vehicle) {
-        indexOfVehicleBeingRemoved = startList.indexOf(vehicle);
-        startList.remove(indexOfVehicleBeingRemoved);
-        currentEventType = EventType.VEHICLE_START_LIST_VEHICLE_DELETED;
-        publisher.notifyEventHappened(this, new VehicleStartListVehicleDeleted());
+        this.indexOfVehicleBeingRemoved = this.startList.indexOf(vehicle);
+        this.startList.remove(this.indexOfVehicleBeingRemoved);
+        this.currentEventType = EventType.VEHICLE_START_LIST_VEHICLE_DELETED;
+        this.publisher.notifyEventHappened(this, new VehicleStartListVehicleDeleted());
     }
 
     public Vehicle deleteVehicleFromStartList(int index) {
-        Vehicle result = startList.remove(index);
-        publisher.notifyEventHappened(this, new VehicleStartListNewVehicleAdded());
+        Vehicle result = this.startList.remove(index);
+        this.publisher.notifyEventHappened(this, new VehicleStartListNewVehicleAdded());
         return result;
     }
 
-    public int getVehicleStartListLength() {
-        return this.startList.size();
-    }
-
     public EventType getCurrentEventType() {
-        return currentEventType;
+        return this.currentEventType;
     }
 
     public int getIndexOfVehicleBeingRemoved() {
-        return indexOfVehicleBeingRemoved;
+        return this.indexOfVehicleBeingRemoved;
     }
 
     public ArrayList<Vehicle> getList() {
-        return startList;
+        return this.startList;
     }
 
     public Publisher getPublisher() {
-        return publisher;
+        return this.publisher;
     }
 }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yaroslavm87.testtask01.R;
 import com.yaroslavm87.testtask01.Vehicle.VehicleType;
 
 import java.util.ArrayList;
@@ -16,14 +17,12 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ActivityTextView textViewVehicleType;
-        TextView textViewEmpty;
 
 
-        ViewHolder(@NonNull View itemView, int textViewVehicleType, int textViewEmpty) {
+        ViewHolder(@NonNull View itemView, int textViewVehicleType) {
             super(itemView);
             itemView.setOnClickListener(this);
             this.textViewVehicleType = new TextViewVehicleType(itemView.findViewById(textViewVehicleType));
-            this.textViewEmpty = itemView.findViewById(textViewEmpty);
         }
 
         @Override
@@ -38,30 +37,50 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
     private OnEntryClickListener onEntryClickListener;
     private int layout;
     private int textViewVehicleType;
-    private int textViewEmpty;
 
     public AdapterForRecyclerViewVehicleTypes(
             ArrayList<VehicleType> itemListForRecyclerView,
             int layout,
-            int textViewVehicleType,
-            int textViewEmpty
+            int textViewVehicleType
     ) {
         this.itemListForRecyclerView = itemListForRecyclerView;
         this.layout = layout;
         this.textViewVehicleType = textViewVehicleType;
-        this.textViewEmpty = textViewEmpty;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        return new ViewHolder(view, this.textViewVehicleType, this.textViewEmpty);
+        return new ViewHolder(view, this.textViewVehicleType);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textViewVehicleType.getTextView().setText(itemListForRecyclerView.get(position).toString());
+
+        switch(itemListForRecyclerView.get(position)) {
+            case TRUCK:
+                holder.textViewVehicleType.getTextView().setBackgroundResource(
+                        R.drawable.background_text_view_vehicle_available_truck
+                );
+                break;
+
+            case CAR:
+                holder.textViewVehicleType.getTextView().setBackgroundResource(
+                        R.drawable.background_text_view_vehicle_available_car
+                );
+                break;
+
+            case MOTORCYCLE:
+                holder.textViewVehicleType.getTextView().setBackgroundResource(
+                        R.drawable.background_text_view_vehicle_available_moto
+                );
+                break;
+        }
+
+        holder.textViewVehicleType.getTextView().setText(
+                itemListForRecyclerView.get(position).toString()
+        );
     }
 
     @Override

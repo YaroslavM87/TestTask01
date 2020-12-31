@@ -146,6 +146,10 @@ public class RaceManager implements Observable {
     public void countVehicleAsFinished() {
         this.amountOfCarsFinished++;
     }
+
+    // TODO: fix bug occurring when "changeState(new RaceEnded())" finishes faster then "state.cancelTimer();"
+    //  java.lang.ClassCastException: com.yaroslavm87.testtask01.RaceManager.StatePostRace cannot be cast to com.yaroslavm87.testtask01.RaceManager.StateRaceForRaceManager
+
     public void performActionIfAllVehiclesHaveFinished() {
         if(this.amountOfCarsFinished == this.vehicleStartList.getList().size()) {
             StateRaceForRaceManager state = (StateRaceForRaceManager) this.raceManagerState;

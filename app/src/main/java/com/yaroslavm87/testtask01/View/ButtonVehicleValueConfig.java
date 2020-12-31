@@ -16,7 +16,7 @@ public class ButtonVehicleValueConfig implements TextViewVehicleSpeed.OnActivity
     }
 
     public void clickButton(Vehicle vehicle, double changeForVehicleValue) {
-        if(this.typeOfTextViewClicked != null) {
+        if(this.typeOfTextViewClicked != null & vehicle != null) {
             chooseAppropriateCommand(vehicle, changeForVehicleValue, this.typeOfTextViewClicked);
         }
     }
@@ -50,10 +50,6 @@ public class ButtonVehicleValueConfig implements TextViewVehicleSpeed.OnActivity
         }
 
     }
-
-
-
-
 
     public enum TypeOfTextViewClicked {
         VEHICLE_MAX_SPEED,

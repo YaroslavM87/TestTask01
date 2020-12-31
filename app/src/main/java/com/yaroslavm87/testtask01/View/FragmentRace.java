@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,23 +13,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yaroslavm87.testtask01.Controller.SetTrackLengthControllerCommand;
+import com.yaroslavm87.testtask01.Controller.StartRaceControllerCommand;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.R;
+import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 import com.yaroslavm87.testtask01.Singletone;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FragmentRace extends Fragment {
 
     private ActivityTextView trackLength;
     private ActivityTextView raceTimer;
 
-//    ActivityTextView vehicleType;
-//    ActivityTextView vehicleCurrentSpeedAndState;
-//    ActivityTextView vehicleDistanceTravelled;
+    private Button reduceTrackLength;
+    private Button increaseTrackLength;
+    private Button startRace;
+    private RaceManager raceManager;
 
-
-    RecyclerView recyclerViewVehicleRaceList;
-    AdapterForRecyclerViewRaceList adapterForRecyclerViewRaceList;
+    private RecyclerView recyclerViewVehicleRaceList;
+    private AdapterForRecyclerViewRaceList adapterForRecyclerViewRaceList;
 
     @Nullable
     @Override
@@ -38,21 +45,42 @@ public class FragmentRace extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        this.raceManager = Singletone.raceManager;
+        initializeButtons();
         initializeTextViews();
         initializeRecyclerViewForVehicleRaceList();
         subscribeObjectsForEvents();
     }
 
-    private void initializeTextViews() {
-        this.trackLength = new TextViewTrackLength(
-                (TextView) requireView().findViewById(R.id.textViewTrackLength)
+    private void initializeButtons() {
+        this.reduceTrackLength = requireView().findViewById(R.id.trackLengthReduce);
+        this.reduceTrackLength.setOnClickListener(
+                v -> reduceTrackLength()
         );
-        this.trackLength.receiveUpdate(Singletone.raceManager.getTrackLength());
+
+        this.increaseTrackLength = requireView().findViewById(R.id.trackLengthIncrease);
+        this.increaseTrackLength.setOnClickListener(
+                v -> increaseTrackLength()
+        );
+
+        this.startRace = requireView().findViewById(R.id.startRace);
+        this.startRace.setOnClickListener(
+                v -> startRace()
+        );
+    }
+
+    private void initializeTextViews() {
+
+        this.trackLength = new TextViewTrackLength(
+                (TextView) requireView().findViewById(R.id.trackLength)
+        );
+        this.trackLength.receiveUpdate(
+                raceManager.getTrackLength()
+        );
 
         this.raceTimer = new TextViewRaceTimer(
                 (TextView) requireView().findViewById(R.id.textViewRaceTimer)
         );
-
     }
 
     private void initializeRecyclerViewForVehicleRaceList() {
@@ -84,99 +112,48 @@ public class FragmentRace extends Fragment {
     private void subscribeObjectsForEvents() {
 
         Publisher vehicleRaceManagerPublisher =
-                Singletone.raceManager.getPublisher();
+                raceManager.getPublisher();
 
-//        Publisher vehicleBufferPublisher =
-//                this.initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer().getPublisher();
-//
-//        Publisher vehicleStartListPublisher =
-//                this.initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getPublisher();
-
-
+        vehicleRaceManagerPublisher.subscribeForEvent(
+                this.trackLength,
+                EventType.RACE_MANAGER_VALUE_CHANGED_TRACK_LENGTH
+        );
 
         vehicleRaceManagerPublisher.subscribeForEvent(
                 this.raceTimer,
                 EventType.RACE_MANAGER_VALUE_CHANGED_RACE_TIMER
         );
 
-//        vehicleBufferPublisher.subscribeForEvent(
-//                this.vehicleBufferVehicleType,
-//                EventType.VEHICLE_BUFFER_NEW_VEHICLE_ADDED,
-//                EventType.VEHICLE_BUFFER_VEHICLE_DELETED
-//        );
-//
-//        vehicleBufferPublisher.subscribeForEvent(
-//                this.vehicleBufferVehicleType,
-//                EventType.VEHICLE_TYPE_CHANGED
-//        );
-//
-//        vehicleBufferPublisher.subscribeForEvent(
-//                this.vehicleBufferVehicleSpeed,
-//                EventType.VEHICLE_VALUE_CHANGED_MAX_SPEED
-//        );
-//
-//        vehicleBufferPublisher.subscribeForEvent(
-//                this.vehicleBufferVehiclePunctureProbability,
-//                EventType.VEHICLE_VALUE_CHANGED_PUNCTURE_PROBABILITY
-//        );
-//
-//        vehicleBufferPublisher.subscribeForEvent(
-//                this.vehicleBufferVehicleAdditionalValue,
-//                EventType.VEHICLE_VALUE_CHANGED_ADDITIONAL_VALUE
-//        );
-//
-//        vehicleStartListPublisher.subscribeForEvent(
-//                this.adapterNotifier,
-//                EventType.VEHICLE_START_LIST_NEW_VEHICLE_ADDED,
-//                EventType.VEHICLE_START_LIST_VEHICLE_DELETED
+//        vehicleRaceManagerPublisher.subscribeForEvent(
+//                this,
+//                EventType.RACE_STARTED
 //        );
     }
-//
-//    private void defineActionWhenClickVehicleTypesAvailableListItem(
-//            AdapterForRecyclerViewVehicleTypes adapter
-//    ) {
-//        adapter.setOnEntryClickListener(
-//                position -> new AddNewVehicleControllerCommand(
-//                        initializeObjectsControllerCommand.getRaceManager().getListOfVehicleTypes().get(position),
-//                        initializeObjectsControllerCommand.getRaceManager()
-//                ).execute());
-//    }
-//
-//    private void defineActionWhenClickButtonReduceVehicleFromBufferValue() {
-//        this.reduceVehicleFromBufferValue.clickButton(
-//                initializeObjectsControllerCommand.
-//                        getRaceManager().
-//                        getVehicleBuffer().
-//                        getVehicleFromBuffer(),
-//                -10);
-//    }
-//
-//    private void defineActionWhenClickButtonIncreaseVehicleFromBufferValue() {
-//        this.increaseVehicleFromBufferValue.clickButton(
-//                initializeObjectsControllerCommand.
-//                        getRaceManager().
-//                        getVehicleBuffer().
-//                        getVehicleFromBuffer(),
-//                10);
-//    }
-//
-//    private void addNewVehicle() {
-//        new AddVehicleToStartListControllerCommand(
-//                this.initializeObjectsControllerCommand.getRaceManager()
-//        ).execute();
-//    }
-//
-//    private void reduceTrackLength() {
-//        new SetTrackLengthControllerCommand(
-//                this.initializeObjectsControllerCommand.getRaceManager(),
-//                -100
-//        ).execute();
-//    }
-//
-//    private void increaseTrackLength() {
-//        new SetTrackLengthControllerCommand(
-//                this.initializeObjectsControllerCommand.getRaceManager(),
-//                100
-//        ).execute();
-//    }
+
+    private void reduceTrackLength() {
+        new SetTrackLengthControllerCommand(
+                raceManager,
+                -100
+        ).execute();
+    }
+
+    private void increaseTrackLength() {
+        new SetTrackLengthControllerCommand(
+                raceManager,
+                100
+        ).execute();
+    }
+
+    private void startRace() {
+
+        TimerTask timerTask = new TimerTask(){
+            @Override
+            public void run() {
+                new StartRaceControllerCommand(Singletone.raceManager).execute();
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(timerTask, 5000);
+    }
 }

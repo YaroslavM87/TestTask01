@@ -9,24 +9,6 @@ import com.yaroslavm87.testtask01.Vehicle.States.VehicleState;
 
 public abstract class Vehicle implements Observable {
 
-//    public class RaceTrackLength implements Subscriber {
-//
-//        private double raceTrackLengthInMeters;
-//
-//        public RaceTrackLength() {}
-//
-//        @Override
-//        public void receiveUpdate(Object updatedValue) {
-//            if(updatedValue instanceof Double) {
-//                this.raceTrackLengthInMeters = (Double) updatedValue;
-//            }
-//        }
-//
-//        public double getRaceTrackLengthInMeters() {
-//            return raceTrackLengthInMeters;
-//        }
-//    }
-
     // TODO: add Command for setting each parameter
 
     final protected VehicleType vehicleType;

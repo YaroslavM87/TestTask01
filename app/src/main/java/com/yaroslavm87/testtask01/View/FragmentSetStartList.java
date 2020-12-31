@@ -30,6 +30,8 @@ public class FragmentSetStartList extends Fragment {
     ButtonVehicleValueConfig increaseVehicleFromBufferValue;
     Button goToSetTrackLength;
 
+    OnVehicleBufferChangedActivityTextViewDataProvider onVehicleBufferChangedActivityTextViewDataProvider;
+
     RecyclerView recyclerViewVehicleTypes;
     AdapterForRecyclerViewVehicleTypes adapterForRecyclerViewVehicleTypes;
 
@@ -44,22 +46,46 @@ public class FragmentSetStartList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_set_vehisle_start_list_content, container, false);
+        return inflater.inflate(R.layout.fragment_set_vehicle_start_list_content, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initializeControllerElements();
-        initializeButtons();
-        initializeTextViews();
-        initializeRecyclerViewForVehiclesAvailable();
-        initializeRecyclerViewForVehicleStartList();
+        initializeViewGroupElements();
         subscribeObjectsForEvents();
     }
 
     private void initializeControllerElements() {
         this.initializeObjectsControllerCommand = new InitializeObjectsControllerCommand();
         this.initializeObjectsControllerCommand.execute();
+    }
+
+    private void initializeViewGroupElements(){
+        initializeButtons();
+        initializeTextViews();
+        initializeRecyclerViewForVehiclesAvailable();
+        initializeRecyclerViewForVehicleStartList();
+
+        this.onVehicleBufferChangedActivityTextViewDataProvider =
+                new OnVehicleBufferChangedActivityTextViewDataProvider(
+                        this.vehicleBufferVehicleType,
+                        this.vehicleBufferVehicleSpeed,
+                        this.vehicleBufferVehiclePunctureProbability,
+                        this.vehicleBufferVehicleAdditionalValue,
+                        requireView().findViewById(R.id.vehicleBufferVehicleTypeHeader),
+                        requireView().findViewById(R.id.vehicleBufferVehicleSpeedHeader),
+                        requireView().findViewById(R.id.vehicleBufferVehiclePunctureProbHeader),
+                        requireView().findViewById(R.id.vehicleBufferVehicleAdditionalValueHeader)
+                );
+
+//        this.onVehicleBufferChangedActivityTextViewDataProvider.addTextViewToList(
+//                this.vehicleBufferVehicleType,
+//                this.vehicleBufferVehicleSpeed,
+//                this.vehicleBufferVehiclePunctureProbability,
+//                this.vehicleBufferVehicleAdditionalValue
+//        );
+
     }
 
     private void initializeButtons() {
@@ -108,7 +134,6 @@ public class FragmentSetStartList extends Fragment {
     private void initializeRecyclerViewForVehiclesAvailable() {
 
         int vehicleType = R.id.typeOfVehicleAvailable;
-        int empty = R.id.emptyTextView;
 
         this.recyclerViewVehicleTypes = requireView().findViewById(R.id.listOfVehiclesAvailable);
         this.layoutForRecyclerView = R.layout.recycler_view_for_list_of_vehicles_available;
@@ -116,8 +141,7 @@ public class FragmentSetStartList extends Fragment {
         this.adapterForRecyclerViewVehicleTypes = new AdapterForRecyclerViewVehicleTypes(
                 this.initializeObjectsControllerCommand.getRaceManager().getListOfVehicleTypes(),
                 this.layoutForRecyclerView,
-                vehicleType,
-                empty
+                vehicleType
         );
 
         LinearLayoutManager layoutManagerForRecyclerView = new LinearLayoutManager(
@@ -165,18 +189,15 @@ public class FragmentSetStartList extends Fragment {
                 this.initializeObjectsControllerCommand.getRaceManager().getVehicleStartList().getPublisher();
 
         vehicleBufferPublisher.subscribeForEvent(
-                this.vehicleBufferVehicleType,
+                this.onVehicleBufferChangedActivityTextViewDataProvider,
                 EventType.VEHICLE_BUFFER_NEW_VEHICLE_ADDED,
                 EventType.VEHICLE_BUFFER_VEHICLE_DELETED
-//                this.vehicleBufferVehicleSpeed,
-//                this.vehicleBufferVehiclePunctureProbability,
-//                this.vehicleBufferVehicleAdditionalValue
         );
 
-        vehicleBufferPublisher.subscribeForEvent(
-                this.vehicleBufferVehicleType,
-                EventType.VEHICLE_TYPE_CHANGED
-        );
+//        vehicleBufferPublisher.subscribeForEvent(
+//                this.vehicleBufferVehicleType,
+//                EventType.VEHICLE_TYPE_CHANGED
+//        );
 
         vehicleBufferPublisher.subscribeForEvent(
                 this.vehicleBufferVehicleSpeed,
@@ -213,19 +234,16 @@ public class FragmentSetStartList extends Fragment {
     private void defineActionWhenClickButtonReduceVehicleFromBufferValue() {
         this.reduceVehicleFromBufferValue.clickButton(
                 initializeObjectsControllerCommand.
-                        getRaceManager().
-                        getVehicleBuffer().
-                        getVehicleFromBuffer(),
+                        getRaceManager().getVehicleBuffer().getVehicleFromBuffer(),
                 -10);
     }
 
     private void defineActionWhenClickButtonIncreaseVehicleFromBufferValue() {
         this.increaseVehicleFromBufferValue.clickButton(
                 initializeObjectsControllerCommand.
-                        getRaceManager().
-                        getVehicleBuffer().
-                        getVehicleFromBuffer(),
-                10);
+                        getRaceManager().getVehicleBuffer().getVehicleFromBuffer(),
+                10
+        );
     }
 
     private void addNewVehicle() {
@@ -235,10 +253,17 @@ public class FragmentSetStartList extends Fragment {
     }
 
     public void replaceFragment() {
-        getParentFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.fragment, FragmentSetTrackLength.class, null)
-                .addToBackStack(null)
-                .commit();
+        if(initializeObjectsControllerCommand.
+                getRaceManager().
+                getVehicleStartList().
+                getList().
+                size() > 1
+        ) {
+            getParentFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .replace(R.id.fragment, FragmentRace.class, null)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

@@ -4,29 +4,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    android:paddingStart="0dp"
     android:paddingEnd="0dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
-
-        <TextView
-            android:id="@+id/typeOfVehicleAvailable"
-            style="@style/textViewTypeOfVehicleAvailable" />
-
-        <TextView
-            android:id="@+id/emptyTextView"
-            style="@style/textViewEmpty"
-
-            />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/typeOfVehicleAvailable"
+        style="@style/textViewTypeOfVehicleAvailable"
+        />
 
 </LinearLayout>
-
-<!--    android:background="@drawable/round_corner"-->
-
-<!--    android:background="@color/colorBackgroundPrimary"-->

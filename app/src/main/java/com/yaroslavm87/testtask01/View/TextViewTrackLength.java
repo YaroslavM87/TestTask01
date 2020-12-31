@@ -28,7 +28,7 @@ public class TextViewTrackLength extends ActivityTextView {
             double d = (Double) updatedValue;
 
             if(d >= 0.0) {
-                textViewValue = String.format("%4.2f", d);
+                textViewValue = String.format("%1.0f", d);
 
             } else {
                 textViewValue = "";

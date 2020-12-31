@@ -35,7 +35,7 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
 
             this.holderVehicleType = new TextViewVehicleType(itemView.findViewById(vehicleType));
 
-            this.holderVehicleCurrentSpeedAndStatus = new TextViewVehicleSpeed(
+            this.holderVehicleCurrentSpeedAndStatus = new TextViewVehicleSpeedAndStatus(
                     itemView.findViewById(vehicleCurrentSpeedAndStatus)
             );
 
@@ -46,6 +46,8 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
             this.holderVehicleFinishTime = new TextViewRaceTimer(
                     itemView.findViewById(vehicleFinishTime)
             );
+
+            this.holderVehicleFinishTime.getTextView().setText("- - -");
 
             this.onEventTextViewColorChanger = new OnEventTextViewColorChanger();
 
@@ -105,7 +107,8 @@ public class AdapterForRecyclerViewRaceList extends RecyclerView.Adapter<Adapter
         holder.holderVehicleCurrentSpeedAndStatus.receiveUpdate(vehicle.getCurrentSpeed());
         vehiclePublisher.subscribeForEvent(
                 holder.holderVehicleCurrentSpeedAndStatus,
-                EventType.VEHICLE_VALUE_CHANGED_CURRENT_SPEED
+                EventType.VEHICLE_VALUE_CHANGED_CURRENT_SPEED,
+                EventType.VEHICLE_VALUE_CHANGED_STATE
         );
 
         holder.holderVehicleDistanceTravelled.receiveUpdate(vehicle.getDistanceTravelledInMeters());

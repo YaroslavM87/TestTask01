@@ -8,14 +8,14 @@ public class PassEmptyValueToSubscriberModelCommand extends ModelCommand {
     private Subscriber receiver;
 
     public PassEmptyValueToSubscriberModelCommand(
-            Subscriber valueSpeedReceiver) {
+            Subscriber emptyValueReceiver) {
         super();
-        this.receiver = valueSpeedReceiver;
+        this.receiver = emptyValueReceiver;
     }
 
     @Override
     public void execute() {
-        receiver.receiveUpdate("");
+        receiver.receiveUpdate(null);
         super.markAsExecuted();
     }
 }
