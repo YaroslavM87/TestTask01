@@ -9,46 +9,122 @@
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="baseTextViewRecyclerViewTypeOfVehicleAvailable" parent="Widget.MaterialComponents.TextView">
-        <item name="android:layout_width">114dp</item>
+    <style name="baseLinearLayout" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="linearLayoutList" parent="baseLinearLayout">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">start</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="baseTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="textViewTypeOfVehicleAvailable" parent="baseTextView">
+        <item name="android:background">@drawable/round_corner</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="textViewVehicleBufferValues" parent="baseTextView">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
         <item name="android:layout_marginStart">0dp</item>
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:layout_marginEnd">0dp</item>
         <item name="android:layout_marginRight">0dp</item>
-
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@color/colorBackgroundSecondary</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="textViewTypeOfVehicleAvailable" parent="baseTextViewRecyclerViewTypeOfVehicleAvailable">
-        <item name="android:layout_height">70dp</item>
-        <item name="android:layout_marginTop">4dp</item>
+    <style name="baseTextViewStartListVehicleValues" parent="baseTextView">
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/colorBackgroundSecondary</item>
+    </style>
+
+    <style name="textViewStartListVehicleValuesType" parent="baseTextViewStartListVehicleValues">
+        <item name="android:layout_width">140dp</item>
+    </style>
+
+    <style name="textViewStartListVehicleValuesSpeed" parent="baseTextViewStartListVehicleValues">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="baseTextViewVehicleRaceListCell" parent="baseTextView">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginEnd">1dp</item>
         <item name="android:layout_marginBottom">0dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:layout_width">78dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/colorBackgroundSecondary</item>
     </style>
 
-    <style name="textViewEmpty" parent="baseTextViewRecyclerViewTypeOfVehicleAvailable">
-        <item name="android:layout_height">10dp</item>
+    <style name="textViewVehicleRaceListCellHeader" parent="baseTextViewVehicleRaceListCell">
         <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
-    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="buttonStyleBase" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="background">@color/colorBackgroundSecondary</item>
 <!--        <item name="android:fontFamily">@font/quantico_bold</item>-->
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
     </style>
 
+    <style name="buttonConfigVehicleParams" parent="buttonStyleBase">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:textSize">25sp</item>
+    </style>
 
+    <style name="buttonAddVehicle" parent="buttonStyleBase">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">55dp</item>
+    </style>
 
+    <style name="buttonGoToSetTrackLength" parent="buttonStyleBase">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">55dp</item>
+    </style>
+
+    <style name="buttonConfigTrackLength" parent="buttonStyleBase">
+        <item name="android:layout_width">54dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="buttonStartRace" parent="buttonStyleBase">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">55dp</item>
+    </style>
 
 </resources>

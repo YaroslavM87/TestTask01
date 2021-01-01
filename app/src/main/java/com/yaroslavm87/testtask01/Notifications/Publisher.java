@@ -13,7 +13,7 @@ public class Publisher {
     private Map<EventType, List<Subscriber>> listsOfSubscribers;
 
     public Publisher() {
-        this.listsOfSubscribers = new HashMap<>(6);
+        this.listsOfSubscribers = new HashMap<>();
     }
 
     public void subscribeForEvent(EventType eventType, Subscriber ...subscribers) {
@@ -29,11 +29,15 @@ public class Publisher {
     }
 
     public void notifyEventHappened(Observable observable, Event event) {
-        notifySubscribers(
+        notifySubscribersWaitingForData(
                 observable,
                 getAppropriateListOfSubscribers(event.getType()),
                 event
         );
+    }
+
+    public void notifyEventHappened(Event event) {
+        notifySubscribersWaitingForEvent(getAppropriateListOfSubscribers(event.getType()));
     }
 
     public boolean cancelSubscription(Subscriber subscriber, EventType eventType) {
@@ -65,7 +69,7 @@ public class Publisher {
         }
     }
 
-    private void notifySubscribers(Observable observable, List<Subscriber> list, Event event) {
+    private void notifySubscribersWaitingForData(Observable observable, List<Subscriber> list, Event event) {
         if(list != null) {
             for (Subscriber subscriber : list) {
                 if(subscriber != null) {
@@ -74,4 +78,16 @@ public class Publisher {
             }
         }
     }
+
+    private void notifySubscribersWaitingForEvent(List<Subscriber> list) {
+        if(list != null) {
+            for (Subscriber subscriber : list) {
+                if(subscriber != null) {
+                    subscriber.receiveUpdate(null);
+                }
+            }
+        }
+    }
+
+
 }

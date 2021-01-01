@@ -18,14 +18,16 @@ public class StartRaceModelCommand extends ModelCommand {
     @Override
     public void execute() {
 
-        Event raceStarted = new RaceStarted();
+        if(this.raceManager.getVehicleStartList().getList().size() > 1) {
+            Event raceStarted = new RaceStarted();
 
-        this.raceManager.changeState(raceStarted);
+            this.raceManager.changeState(raceStarted);
 
-        for(Vehicle vehicleStarted : this.raceManager.getVehicleStartList().getList()) {
-            vehicleStarted.changeState(raceStarted);
+            for(Vehicle vehicleStarted : this.raceManager.getVehicleStartList().getList()) {
+                vehicleStarted.changeState(raceStarted);
+            }
+
+            super.markAsExecuted();
         }
-
-        super.markAsExecuted();
     }
 }

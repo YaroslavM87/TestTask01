@@ -25,60 +25,13 @@ public class Car extends Vehicle {
     }
 
     @Override
-    public void setCurrentSpeed(double vehicleSpeed) {
-        if(vehicleSpeed >= 0 & vehicleSpeed <= super.vehicleMaxSpeed) {
-            super.vehicleCurrentSpeed = vehicleSpeed;
-            this.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedCurrentSpeed()
-            );
-        }
-    }
-
-    @Override
-    public void setDistanceTravelledInMeters(double vehicleDistanceTravelledInMeters) {
-        if(vehicleDistanceTravelledInMeters > 0) {
-            super.vehicleDistanceTravelledInMeters = vehicleDistanceTravelledInMeters;
-            super.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedDistanceTravelled()
-            );
-        }
-    }
-
-    @Override
-    public void setPunctureProbability(double vehiclePunctureProbability) {
-        if(vehiclePunctureProbability > 0 & vehiclePunctureProbability < 1) {
-            this.vehiclePunctureProbability = vehiclePunctureProbability;
-            super.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedPunctureProbability()
-            );
-        }
-    }
-
-    @Override
-    void setState(VehicleState vehicleState) {
-        if(vehicleState != null) {
-            this.vehicleState = vehicleState;
-            this.vehicleState.performTaskDefinedByState();
-            super.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedState()
-            );
-        }
-    }
-
-    //TODO: add command for this method
-    @Override
-    public void changeState(Event event) {
-        new VehicleStateChanger().setNextVehicleState(this, event);
-    }
-
-    @Override
     public ModelCommand prepareCommandForUpdate(Event event, Subscriber subscriber) {
         return getAppropriateCommand(event, subscriber);
     }
 
     @Override
-    public void setPublisher(Publisher publisher) {
-        super.publisher = publisher;
+    public void setPublisher(Publisher timerPublisher) {
+        super.publisher = timerPublisher;
     }
 
     public void setAmountOfPassengers(int amountOfPassengers) {
@@ -90,7 +43,7 @@ public class Car extends Vehicle {
         switch(event.getType()) {
 
             case VEHICLE_TYPE_CHANGED:
-                return new PassVehicleTypeToSubscriber(
+                return new PassVehicleTypeToSubscriberModelCommand(
                         this, subscriber
                 );
 
@@ -105,7 +58,7 @@ public class Car extends Vehicle {
                 );
 
             case VEHICLE_VALUE_CHANGED_PUNCTURE_PROBABILITY:
-                return new PassVehicleValuePunctureProbabilityToSubscriber(
+                return new PassVehicleValuePunctureProbabilityToSubscriberModelCommand(
                         this, subscriber
                 );
 
@@ -114,8 +67,13 @@ public class Car extends Vehicle {
                         this, subscriber
                 );
 
+            case VEHICLE_VALUE_CHANGED_FINISH_TIME:
+                return new PassVehicleValueFinishTimeToSubscriber(
+                        this, subscriber
+                );
+
             case VEHICLE_VALUE_CHANGED_STATE:
-                return new PassVehicleValueStateToSubscriber(
+                return new PassVehicleValueStateToSubscriberModelCommand(
                         this, subscriber
                 );
 

@@ -10,11 +10,32 @@
     <!--   a secondary color for controls like checkboxes and text fields -->
     <color name="colorAccent">#58598F</color>
 
-    <color name="colorTextPrimary">#E0E0E0</color>
+    <color name="colorTextPrimary">#292929</color>
+
     <color name="colorTextSecond">#BF3219</color>
+
     <color name="colorTextThird">#7171B5</color>
-    <color name="colorBackgroundPrimary">#CACACA</color>
-    <color name="colorBackgroundSecondary">#47488A</color>
-    <color name="colorButtonStroke">#58598F</color>
+
+    <color name="colorBackgroundPrimary">#EAEAEA</color>
+
+    <color name="colorBackgroundSecondary">#C8C8C8</color>
+
+    <color name="colorButtonStroke">#838383</color>
+
     <color name="colorButtonRipple">#7171B5</color>
+
+    <!-- colors for OnClickListItemTextViewColorChanger -->
+    <color name="textViewColorTruckChosen">#64B5F6</color>
+
+    <color name="textViewColorCarChosen">#4FC3F7</color>
+
+    <color name="textViewColorMotoChosen">#4DD0E1</color>
+
+    <!-- colors for OnEventTextViewColorChanger -->
+    <color name="textViewColorVehicleRaceState">#669FFD</color>
+
+    <color name="textViewColorVehicleGotPunctureState">#FF4081</color>
+
+    <color name="textViewColorVehicleFinishedState">#69F0AE</color>
+
 </resources>

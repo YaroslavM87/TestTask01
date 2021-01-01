@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="1dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_gravity="start"
+    >
 
         <TextView
-            android:id="@+id/vehicleStartListTextViewType"
-            android:layout_width="80dp"
-           android:layout_height="50dp"
-           android:gravity="center" />
+            android:id="@+id/vehicleRaceListTextViewType"
+            style="@style/textViewStartListVehicleValuesType"
+            />
 
         <TextView
-           android:id="@+id/vehicleStartListTextViewVehicleSpeed"
-           android:layout_width="150dp"
-           android:layout_height="50dp"
-           android:gravity="center" />
-
-        <TextView
-           android:id="@+id/vehicleStartListTextViewVehicleDistanceTravelled"
-           android:layout_width="150dp"
-           android:layout_height="50dp"
-          android:gravity="center" />
+            android:id="@+id/vehicleRaceListTextViewVehicleCurrentSpeedAndState"
+            style="@style/textViewStartListVehicleValuesSpeed"
+            />
 
 </LinearLayout>

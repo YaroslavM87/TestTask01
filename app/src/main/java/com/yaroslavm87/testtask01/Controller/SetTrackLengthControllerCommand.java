@@ -1,6 +1,6 @@
 package com.yaroslavm87.testtask01.Controller;
 
-import com.yaroslavm87.testtask01.ModelCommands.SetTrackLengthModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.SetTrackLengthModelCommandModelCommand;
 import com.yaroslavm87.testtask01.RaceManager.RaceManager;
 
 public class SetTrackLengthControllerCommand extends ControllerCommand {
@@ -15,6 +15,6 @@ public class SetTrackLengthControllerCommand extends ControllerCommand {
 
     @Override
     public void execute() {
-        new SetTrackLengthModelCommand(raceManager, trackLengthAdditionalValue).execute();
+        new SetTrackLengthModelCommandModelCommand(raceManager, trackLengthAdditionalValue).execute();
     }
 }

@@ -1,5 +1,5 @@
 package com.yaroslavm87.testtask01.Controller;
-import com.yaroslavm87.testtask01.ModelCommands.SetVehicleMaxSpeedModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.SetVehicleMaxSpeedModelCommandModelCommand;
 import com.yaroslavm87.testtask01.Vehicle.Vehicle;
 
 public class SetVehicleMaxSpeedControllerCommand extends ControllerCommand {
@@ -16,6 +16,6 @@ public class SetVehicleMaxSpeedControllerCommand extends ControllerCommand {
     @Override
     public void execute() {
         double result = changeForVehicleMaxSpeed + vehicle.getMaxSpeed();
-        new SetVehicleMaxSpeedModelCommand(vehicle, result).execute();
+        new SetVehicleMaxSpeedModelCommandModelCommand(vehicle, result).execute();
     }
 }

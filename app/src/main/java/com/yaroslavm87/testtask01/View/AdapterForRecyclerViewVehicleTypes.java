@@ -1,6 +1,5 @@
 package com.yaroslavm87.testtask01.View;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +17,18 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ActivityTextView textViewVehicleType;
-        TextView textViewEmpty;
 
 
-        ViewHolder(@NonNull View itemView, int textViewVehicleType, int textViewEmpty) {
+        ViewHolder(@NonNull View itemView, int textViewVehicleType) {
             super(itemView);
             itemView.setOnClickListener(this);
-            this.textViewVehicleType = new VehicleTypeTextView(itemView.findViewById(textViewVehicleType));
-            this.textViewEmpty = itemView.findViewById(textViewEmpty);
+            this.textViewVehicleType = new TextViewVehicleType(itemView.findViewById(textViewVehicleType));
         }
 
         @Override
         public void onClick(View v) {
             if (onEntryClickListener != null) {
-                onEntryClickListener.onEntryClick(v, getLayoutPosition());
+                onEntryClickListener.onEntryClick(getLayoutPosition());
             }
         }
     }
@@ -40,30 +37,50 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
     private OnEntryClickListener onEntryClickListener;
     private int layout;
     private int textViewVehicleType;
-    private int textViewEmpty;
 
     public AdapterForRecyclerViewVehicleTypes(
             ArrayList<VehicleType> itemListForRecyclerView,
             int layout,
-            int textViewVehicleType,
-            int textViewEmpty
+            int textViewVehicleType
     ) {
         this.itemListForRecyclerView = itemListForRecyclerView;
         this.layout = layout;
         this.textViewVehicleType = textViewVehicleType;
-        this.textViewEmpty = textViewEmpty;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        return new ViewHolder(view, this.textViewVehicleType, this.textViewEmpty);
+        return new ViewHolder(view, this.textViewVehicleType);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textViewVehicleType.getTextView().setText(itemListForRecyclerView.get(position).toString());
+
+        switch(itemListForRecyclerView.get(position)) {
+            case TRUCK:
+                holder.textViewVehicleType.getTextView().setBackgroundResource(
+                        R.drawable.background_text_view_vehicle_available_truck
+                );
+                break;
+
+            case CAR:
+                holder.textViewVehicleType.getTextView().setBackgroundResource(
+                        R.drawable.background_text_view_vehicle_available_car
+                );
+                break;
+
+            case MOTORCYCLE:
+                holder.textViewVehicleType.getTextView().setBackgroundResource(
+                        R.drawable.background_text_view_vehicle_available_moto
+                );
+                break;
+        }
+
+        holder.textViewVehicleType.getTextView().setText(
+                itemListForRecyclerView.get(position).toString()
+        );
     }
 
     @Override
@@ -72,7 +89,7 @@ public class AdapterForRecyclerViewVehicleTypes extends RecyclerView.Adapter<Ada
     }
 
     public interface OnEntryClickListener {
-        void onEntryClick(View view, int position);
+        void onEntryClick(int position);
     }
 
     public void setOnEntryClickListener(OnEntryClickListener onEntryClickListener) {

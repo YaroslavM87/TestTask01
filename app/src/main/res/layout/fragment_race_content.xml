@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="start"
+        >
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/round_corner_colored"
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            android:gravity="top"
+            >
+
+            <TextView
+                android:id="@+id/raceTimerHeader"
+                style="@style/baseTextView"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:background="#9575CD"
+                android:text="@string/race_timer"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:id="@+id/textViewRaceTimer"
+                style="@style/baseTextView"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:background="#9575CD"
+                android:text="00 : 00"
+                android:textSize="45sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            android:gravity="top"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_corner_colored"
+                android:orientation="vertical"
+                android:layout_gravity="top"
+                android:gravity="top"
+                >
+
+                <TextView
+                    android:id="@+id/trackLengthHeader"
+                    style="@style/baseTextView"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="top"
+                    android:gravity="center"
+                    android:background="#9575CD"
+                    android:text="@string/track_length"
+                    android:textSize="15sp"
+                    />
+
+                <TextView
+                    android:id="@+id/trackLength"
+                    style="@style/baseTextView"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:gravity="center"
+                    android:background="#9575CD"
+                    android:text="400"
+                    android:textSize="30sp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                >
+
+                <Button
+                    android:id="@+id/trackLengthReduce"
+                    style="@style/buttonConfigTrackLength"
+                    android:layout_margin="5dp"
+                    android:text="@string/param_reduce"
+                    app:backgroundTint="@color/colorBackgroundSecondary"
+                    app:elevation="0dp"
+                    app:iconTint="#FFFFFF"
+                    app:rippleColor="@color/colorButtonStroke"
+                    app:strokeColor="@color/colorButtonStroke"
+                    app:strokeWidth="1dp"
+                    />
+
+                <Button
+                    android:id="@+id/trackLengthIncrease"
+                    style="@style/buttonConfigTrackLength"
+                    android:layout_margin="5dp"
+                    android:text="@string/param_increase"
+                    app:backgroundTint="@color/colorBackgroundSecondary"
+                    app:elevation="0dp"
+                    app:iconTint="#FFFFFF"
+                    app:rippleColor="@color/colorButtonStroke"
+                    app:strokeColor="@color/colorButtonStroke"
+                    app:strokeWidth="1dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearLayoutList"
+        android:layout_marginTop="30dp"
+        android:baselineAligned="false"
+        >
+
+        <Button
+            android:id="@+id/startRace"
+            style="@style/buttonStartRace"
+
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/button_start"
+            app:backgroundTint="@color/colorBackgroundSecondary"
+            app:elevation="0dp"
+            app:iconTint="#FFFFFF"
+            app:rippleColor="@color/colorButtonRipple"
+            app:strokeColor="@color/colorButtonStroke"
+            app:strokeWidth="1dp"
+            />
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewHeaderTo"
+            style="@style/baseTextView"
+            android:layout_width="68dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+
+            android:gravity="center"
+            android:text="@string/start_list_header_for" />
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewHeader"
+            style="@style/baseTextView"
+            android:layout_marginEnd="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/round_corner_top"
+            android:text="@string/race_list_header"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearLayoutList"
+        android:layout_marginTop="5dp"
+        android:baselineAligned="false"
+        >
+        <TextView
+            android:id="@+id/textViewVehicleTypeHeader"
+            style="@style/textViewVehicleRaceListCellHeader"
+            android:background="@drawable/round_corner_left_side_top"
+            android:text="@string/vehicle_type"
+            />
+
+        <TextView
+            android:id="@+id/textViewVehicleCurrentSpeedAndStatusHeader"
+            style="@style/textViewVehicleRaceListCellHeader"
+            android:text="@string/vehicle_current_speed"
+            />
+
+        <TextView
+            android:id="@+id/textViewVehicleDistanceTravelledHeader"
+            style="@style/textViewVehicleRaceListCellHeader"
+            android:text="@string/vehicle_distance_travelled"
+            />
+
+        <TextView
+            android:id="@+id/textViewVehicleFinishTime"
+            style="@style/textViewVehicleRaceListCellHeader"
+            android:layout_width="match_parent"
+            android:text="@string/vehicle_finish_time"
+            />
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vehicleRaceList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</LinearLayout>

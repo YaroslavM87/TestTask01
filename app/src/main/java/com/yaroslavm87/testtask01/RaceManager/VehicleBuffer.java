@@ -1,7 +1,8 @@
 package com.yaroslavm87.testtask01.RaceManager;
 
 import com.yaroslavm87.testtask01.ModelCommands.ModelCommand;
-import com.yaroslavm87.testtask01.ModelCommands.NotifySubscribersVehicleValuesChanged;
+import com.yaroslavm87.testtask01.ModelCommands.PassEmptyValueToSubscriberModelCommand;
+import com.yaroslavm87.testtask01.ModelCommands.PassVehicleAsValueToSubscriberModelCommand;
 import com.yaroslavm87.testtask01.Notifications.Events.Event;
 import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Events.VehicleBufferNewVehicleAdded;
@@ -15,19 +16,27 @@ public class VehicleBuffer implements Observable {
 
     private Vehicle vehicleFromBuffer;
     private Publisher publisher;
-    private EventType eventType;
 
     public VehicleBuffer() {}
 
     @Override
     public ModelCommand prepareCommandForUpdate(Event event, Subscriber subscriber) {
-        return new NotifySubscribersVehicleValuesChanged(this, event);
+
+        switch(event.getType()) {
+            case VEHICLE_BUFFER_NEW_VEHICLE_ADDED:
+                return new PassVehicleAsValueToSubscriberModelCommand(this, subscriber);
+
+            case VEHICLE_BUFFER_VEHICLE_DELETED:
+                return new PassEmptyValueToSubscriberModelCommand(subscriber);
+
+            default:
+                return null;
+        }
     }
 
     public void addVehicleToBuffer(Vehicle vehicle) {
         this.vehicleFromBuffer = vehicle;
-        eventType = EventType.VEHICLE_BUFFER_NEW_VEHICLE_ADDED;
-        publisher.notifyEventHappened(this, new VehicleBufferNewVehicleAdded());
+        this.publisher.notifyEventHappened(this, new VehicleBufferNewVehicleAdded());
     }
 
     public Vehicle getVehicleFromBuffer() {
@@ -36,19 +45,14 @@ public class VehicleBuffer implements Observable {
 
     public void deleteVehicleFromBuffer() {
         this.vehicleFromBuffer = null;
-        this.eventType = EventType.VEHICLE_BUFFER_VEHICLE_DELETED;
         this.publisher.notifyEventHappened(this, new VehicleBufferVehicleDeleted()); //TODO: add new command to clear textViews
     }
 
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public void setPublisher(Publisher timerPublisher) {
+        this.publisher = timerPublisher;
     }
 
     public Publisher getPublisher() {
         return publisher;
-    }
-
-    public EventType getEventType() {
-        return eventType;
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/linearLayoutList"
+    >
+
+        <TextView
+            android:id="@+id/vehicleRaceListTextViewType"
+            style="@style/baseTextViewVehicleRaceListCell"
+            />
+
+        <TextView
+            android:id="@+id/vehicleRaceListTextViewVehicleCurrentSpeedAndState"
+            style="@style/baseTextViewVehicleRaceListCell"
+            />
+
+        <TextView
+            android:id="@+id/vehicleRaceListTextViewVehicleDistanceTravelled"
+            style="@style/baseTextViewVehicleRaceListCell"
+            />
+
+        <TextView
+            android:id="@+id/vehicleRaceListTextViewVehicleFinishTime"
+            style="@style/baseTextViewVehicleRaceListCell"
+            android:layout_width="match_parent"
+            />
+
+</LinearLayout>

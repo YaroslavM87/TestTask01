@@ -1,3 +1,41 @@
 <resources>
-    <string name="app_name">TestTask01</string>
+
+    <string name="app_name">Race Simulator</string>
+
+    <string name="vehicle_type">Type</string>
+
+    <string name="vehicle_max_speed">Max speed</string>
+
+    <string name="vehicle_puncture_probability">Punct. prob</string>
+
+    <string name="vehicle_additional_value">Extra value</string>
+
+    <string name="vehicle_current_speed">Speed</string>
+
+    <string name="vehicle_distance_travelled">Distance</string>
+
+    <string name="vehicle_finish_time">Time</string>
+
+    <string name="start_list_header_to">to</string>
+
+    <string name="start_list_header_for">for</string>
+
+    <string name="start_list_header">START LIST</string>
+
+    <string name="race_list_header">VEHICLES IN LIST</string>
+
+    <string name="param_increase">+</string>
+
+    <string name="param_reduce">-</string>
+
+    <string name="button_add">ADD</string>
+
+    <string name="set_track_length">TRACK LENGTH\n- - - ></string>
+
+    <string name="track_length">TRACK\nLENGTH</string>
+
+    <string name="race_timer">RACE\nTIMER</string>
+
+    <string name="button_start">START RACE</string>
+
 </resources>

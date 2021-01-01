@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listOfVehiclesAvailable"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="start"
+        android:baselineAligned="false"
+        >
+
+        <LinearLayout
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:baselineAligned="false"
+            >
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleTypeHeader"
+                style="@style/textViewVehicleBufferValues"
+                android:background="@drawable/round_corner_left_side_top"
+                android:text="@string/vehicle_type"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleSpeedHeader"
+                style="@style/textViewVehicleBufferValues"
+                android:text="@string/vehicle_max_speed"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehiclePunctureProbHeader"
+                style="@style/textViewVehicleBufferValues"
+                android:text="@string/vehicle_puncture_probability"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleAdditionalValueHeader"
+                style="@style/textViewVehicleBufferValues"
+                android:background="@drawable/round_corner_left_side_bottom"
+                android:text="@string/vehicle_additional_value"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="0dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:baselineAligned="false"
+            >
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleType"
+                style="@style/textViewVehicleBufferValues"
+                android:background="@drawable/round_corner_right_side_top"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleSpeed"
+                style="@style/textViewVehicleBufferValues"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehiclePunctureProb"
+                style="@style/textViewVehicleBufferValues"
+                />
+
+            <TextView
+                android:id="@+id/vehicleBufferVehicleAdditionalValue"
+                style="@style/textViewVehicleBufferValues"
+                android:background="@drawable/round_corner_right_side_bottom"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="15dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+
+            <Button
+                android:id="@+id/vehicleValueIncrease"
+                style="@style/buttonConfigVehicleParams"
+                android:layout_gravity="center"
+                android:text="@string/param_increase"
+                app:backgroundTint="@color/colorBackgroundSecondary"
+                app:elevation="0dp"
+                app:iconTint="#FFFFFF"
+                app:rippleColor="@color/colorButtonStroke"
+                app:strokeColor="@color/colorButtonStroke"
+                app:strokeWidth="1dp"
+                />
+
+            <Button
+                android:id="@+id/vehicleValueReduce"
+                style="@style/buttonConfigVehicleParams"
+                android:layout_gravity="center"
+                android:text="@string/param_reduce"
+                app:backgroundTint="@color/colorBackgroundSecondary"
+                app:elevation="0dp"
+                app:iconTint="#FFFFFF"
+                app:rippleColor="@color/colorButtonStroke"
+                app:strokeColor="@color/colorButtonStroke"
+                app:strokeWidth="1dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="17dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="start"
+        >
+
+        <Button
+            android:id="@+id/addNewVehicle"
+            style="@style/buttonAddVehicle"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/button_add"
+            app:backgroundTint="@color/colorBackgroundSecondary"
+            app:elevation="0dp"
+            app:iconTint="#FFFFFF"
+            app:rippleColor="@color/colorButtonRipple"
+            app:strokeColor="@color/colorButtonStroke"
+            app:strokeWidth="1dp"
+            />
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewHeaderTo"
+            style="@style/baseTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="25dp"
+            android:layout_gravity="start"
+            android:gravity="center_vertical"
+            android:text="@string/start_list_header_to"
+            />
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewHeader"
+            style="@style/baseTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="25dp"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:background="@drawable/round_corner_top"
+            android:text="@string/start_list_header"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        >
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewTypeHeader"
+            style="@style/baseTextView"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/round_corner_left_side_top"
+            android:text="@string/vehicle_type"
+            />
+
+        <TextView
+            android:id="@+id/vehicleStartListTextViewVehicleMaxSpeedHeader"
+            style="@style/baseTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroundSecondary"
+            android:text="@string/vehicle_max_speed" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vehicleStartList"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="17dp"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_gravity="center_horizontal"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:gravity="bottom"
+        >
+
+        <Button
+            android:id="@+id/goToSetTrackLength"
+            style="@style/buttonGoToSetTrackLength"
+            android:text="@string/set_track_length"
+            app:backgroundTint="@color/colorBackgroundSecondary"
+            app:elevation="0dp"
+            app:iconTint="#FFFFFF"
+            app:rippleColor="@color/colorButtonRipple"
+            app:strokeColor="@color/colorButtonStroke"
+            app:strokeWidth="1dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+<!--<LinearLayout-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:orientation="vertical"-->
+<!--android:layout_gravity="center"-->
+<!--    >-->
+
+<!--<LinearLayout-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="horizontal"-->
+<!--    android:layout_gravity="center"-->
+<!--    android:gravity="center-->
+<!--    >-->
+
+<!--</LinearLayout>-->
+
+<!--</LinearLayout>-->
