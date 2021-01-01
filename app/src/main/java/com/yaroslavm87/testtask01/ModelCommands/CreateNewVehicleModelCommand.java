@@ -24,18 +24,20 @@ public class CreateNewVehicleModelCommand extends ModelCommand {
 
         switch (vehicleType) {
 
-//            case MOTORCYCLE:
-//                createdVehicle = new MotorcycleCreator(raceManager, publisher).create();
-//                super.markAsExecuted();
+            case MOTORCYCLE:
+                this.createdVehicle = new MotoCreator(this.raceManager, this.publisher).create();
+                super.markAsExecuted();
+                break;
 
             case CAR:
                 this.createdVehicle = new CarCreator(this.raceManager, this.publisher).create();
                 super.markAsExecuted();
                 break;
 
-//            case TRUCK:
-//                createdVehicle = new TruckCreator(raceManager, publisher).create();
-//                super.markAsExecuted();
+            case TRUCK:
+                this.createdVehicle = new TruckCreator(raceManager, publisher).create();
+                super.markAsExecuted();
+                break;
         }
     }
 

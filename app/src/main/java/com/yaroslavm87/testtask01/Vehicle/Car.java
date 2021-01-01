@@ -25,63 +25,6 @@ public class Car extends Vehicle {
     }
 
     @Override
-    public void setCurrentSpeed(double vehicleSpeed) {
-        if(vehicleSpeed >= 0 & vehicleSpeed <= super.vehicleMaxSpeed) {
-            super.vehicleCurrentSpeed = vehicleSpeed;
-            this.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedCurrentSpeed()
-            );
-        }
-    }
-
-    @Override
-    public void setDistanceTravelledInMeters(double vehicleDistanceTravelledInMeters) {
-        if(vehicleDistanceTravelledInMeters > 0) {
-            super.vehicleDistanceTravelledInMeters = vehicleDistanceTravelledInMeters;
-            super.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedDistanceTravelled()
-            );
-        }
-    }
-
-    @Override
-    public void setFinishTime(long finishTime) {
-        if(finishTime > 0L) {
-            super.vehicleFinishTime = finishTime;
-            super.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedFinishTime()
-            );
-        }
-    }
-
-    @Override
-    public void setPunctureProbability(double vehiclePunctureProbability) {
-        if(vehiclePunctureProbability > 0 & vehiclePunctureProbability < 1) {
-            this.vehiclePunctureProbability = vehiclePunctureProbability;
-            super.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedPunctureProbability()
-            );
-        }
-    }
-
-    @Override
-    void setState(VehicleState vehicleState) {
-        if(vehicleState != null) {
-            this.vehicleState = vehicleState;
-            this.vehicleState.performTaskDefinedByState();
-            super.publisher.notifyEventHappened(
-                    this, new VehicleValueChangedState()
-            );
-        }
-    }
-
-    //TODO: add command for this method
-    @Override
-    public void changeState(Event event) {
-        new VehicleStateChanger().setNextVehicleState(this, event);
-    }
-
-    @Override
     public ModelCommand prepareCommandForUpdate(Event event, Subscriber subscriber) {
         return getAppropriateCommand(event, subscriber);
     }

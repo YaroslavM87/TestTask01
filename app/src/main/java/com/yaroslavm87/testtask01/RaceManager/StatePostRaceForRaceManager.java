@@ -1,9 +1,9 @@
 package com.yaroslavm87.testtask01.RaceManager;
 
-public class StatePostRace extends State {
+public class StatePostRaceForRaceManager extends State {
 
 
-    public StatePostRace(RaceManager raceManager) {
+    public StatePostRaceForRaceManager(RaceManager raceManager) {
         super(raceManager);
     }
 

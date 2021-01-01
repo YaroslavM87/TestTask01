@@ -1,6 +1,11 @@
 package com.yaroslavm87.testtask01.Vehicle;
 
 import com.yaroslavm87.testtask01.Notifications.Events.Event;
+import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedCurrentSpeed;
+import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedDistanceTravelled;
+import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedFinishTime;
+import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedPunctureProbability;
+import com.yaroslavm87.testtask01.Notifications.Events.VehicleValueChangedState;
 import com.yaroslavm87.testtask01.Notifications.Observable;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.Notifications.Subscriber;
@@ -27,17 +32,55 @@ public abstract class Vehicle implements Observable {
 
     public abstract void setMaxSpeed(double vehicleMaxSpeed);
 
-    public abstract void setCurrentSpeed(double vehicleCurrentSpeed);
+    public void setCurrentSpeed(double vehicleCurrentSpeed) {
+        if(vehicleCurrentSpeed >= 0 & vehicleCurrentSpeed <= this.vehicleMaxSpeed) {
+            this.vehicleCurrentSpeed = vehicleCurrentSpeed;
+            this.publisher.notifyEventHappened(
+                    this, new VehicleValueChangedCurrentSpeed()
+            );
+        }
+    }
 
-    public abstract void setPunctureProbability(double vehiclePunctureProbability);
+    public void setPunctureProbability(double vehiclePunctureProbability)  {
+        if(vehiclePunctureProbability > 0 & vehiclePunctureProbability < 1) {
+            this.vehiclePunctureProbability = vehiclePunctureProbability;
+            this.publisher.notifyEventHappened(
+                    this, new VehicleValueChangedPunctureProbability()
+            );
+        }
+    }
 
-    public abstract void setDistanceTravelledInMeters(double vehicleDistanceTravelledInMeters);
+    public void setDistanceTravelledInMeters(double vehicleDistanceTravelledInMeters) {
+        if(vehicleDistanceTravelledInMeters > 0) {
+            this.vehicleDistanceTravelledInMeters = vehicleDistanceTravelledInMeters;
+            this.publisher.notifyEventHappened(
+                    this, new VehicleValueChangedDistanceTravelled()
+            );
+        }
+    }
 
-    public abstract void setFinishTime(long finishTime);
+    public void setFinishTime(long finishTime) {
+        if(finishTime > 0L) {
+            this.vehicleFinishTime = finishTime;
+            this.publisher.notifyEventHappened(
+                    this, new VehicleValueChangedFinishTime()
+            );
+        }
+    }
 
-    abstract void setState(VehicleState vehicleState);
+    void setState(VehicleState vehicleState)  {
+        if(vehicleState != null) {
+            this.vehicleState = vehicleState;
+            this.vehicleState.performTaskDefinedByState();
+            this.publisher.notifyEventHappened(
+                    this, new VehicleValueChangedState()
+            );
+        }
+    }
 
-    public abstract void changeState(Event event);
+    public void changeState(Event event) {
+        new VehicleStateChanger().setNextVehicleState(this, event);
+    }
 
     public VehicleType getVehicleType() {
         return vehicleType;
