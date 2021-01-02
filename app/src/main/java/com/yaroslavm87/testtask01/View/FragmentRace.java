@@ -146,14 +146,18 @@ public class FragmentRace extends Fragment {
 
     private void startRace() {
 
-        TimerTask timerTask = new TimerTask(){
-            @Override
-            public void run() {
-                new StartRaceControllerCommand(Singletone.raceManager).execute();
-            }
-        };
+//        TimerTask timerTask = new TimerTask(){
+//            @Override
+//            public void run() {
+//                new StartRaceControllerCommand(Singletone.raceManager).execute();
+//            }
+//        };
+//
+//        Timer timer = new Timer();
+//        timer.schedule(timerTask, 5000);
 
-        Timer timer = new Timer();
-        timer.schedule(timerTask, 5000);
+        new StartRaceControllerCommand(Singletone.raceManager).execute();
     }
+
+
 }

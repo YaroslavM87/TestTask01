@@ -41,7 +41,7 @@ public class RaceManager implements Observable {
         }
 
         private void count(long additionValueToTimer) {
-            this.timer = this.timer + additionValueToTimer;
+            this.timer = additionValueToTimer + this.timer;
             timerPublisher.notifyEventHappened(this, new RaceManagerValueChangedRaceTimer());
         }
 

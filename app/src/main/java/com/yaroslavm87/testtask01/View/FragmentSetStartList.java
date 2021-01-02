@@ -1,11 +1,15 @@
 package com.yaroslavm87.testtask01.View;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,7 +22,7 @@ import com.yaroslavm87.testtask01.Notifications.Events.EventType;
 import com.yaroslavm87.testtask01.Notifications.Publisher;
 import com.yaroslavm87.testtask01.R;
 
-public class FragmentSetStartList extends Fragment {
+public class FragmentSetStartList extends Fragment implements View.OnClickListener {
 
     ActivityTextView vehicleBufferVehicleType;
     TextViewVehicleSpeed vehicleBufferVehicleSpeed;
@@ -78,36 +82,20 @@ public class FragmentSetStartList extends Fragment {
                         requireView().findViewById(R.id.vehicleBufferVehiclePunctureProbHeader),
                         requireView().findViewById(R.id.vehicleBufferVehicleAdditionalValueHeader)
                 );
-
-//        this.onVehicleBufferChangedActivityTextViewDataProvider.addTextViewToList(
-//                this.vehicleBufferVehicleType,
-//                this.vehicleBufferVehicleSpeed,
-//                this.vehicleBufferVehiclePunctureProbability,
-//                this.vehicleBufferVehicleAdditionalValue
-//        );
-
     }
 
     private void initializeButtons() {
         this.addNewVehicle = requireView().findViewById(R.id.addNewVehicle);
-        this.addNewVehicle.setOnClickListener(
-                v -> addNewVehicle()
-        );
+        this.addNewVehicle.setOnClickListener(this);
 
         this.reduceVehicleFromBufferValue = new ButtonVehicleValueConfig(requireView().findViewById(R.id.vehicleValueReduce));
-        this.reduceVehicleFromBufferValue.setOnClickListener(
-                v -> defineActionWhenClickButtonReduceVehicleFromBufferValue()
-        );
+        this.reduceVehicleFromBufferValue.setOnClickListener(this);
 
         this.increaseVehicleFromBufferValue = new ButtonVehicleValueConfig(requireView().findViewById(R.id.vehicleValueIncrease));
-        this.increaseVehicleFromBufferValue.setOnClickListener(
-                v -> defineActionWhenClickButtonIncreaseVehicleFromBufferValue()
-        );
+        this.increaseVehicleFromBufferValue.setOnClickListener(this);
 
         this.goToSetTrackLength = requireView().findViewById(R.id.goToSetTrackLength);
-        this.goToSetTrackLength.setOnClickListener(
-                v -> replaceFragment()
-        );
+        this.goToSetTrackLength.setOnClickListener(this);
     }
 
     private void initializeTextViews() {
@@ -194,11 +182,6 @@ public class FragmentSetStartList extends Fragment {
                 EventType.VEHICLE_BUFFER_VEHICLE_DELETED
         );
 
-//        vehicleBufferPublisher.subscribeForEvent(
-//                this.vehicleBufferVehicleType,
-//                EventType.VEHICLE_TYPE_CHANGED
-//        );
-
         vehicleBufferPublisher.subscribeForEvent(
                 this.vehicleBufferVehicleSpeed,
                 EventType.VEHICLE_VALUE_CHANGED_MAX_SPEED
@@ -219,6 +202,29 @@ public class FragmentSetStartList extends Fragment {
                 EventType.VEHICLE_START_LIST_NEW_VEHICLE_ADDED,
                 EventType.VEHICLE_START_LIST_VEHICLE_DELETED
         );
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.addNewVehicle:
+                addNewVehicle();
+                break;
+
+            case R.id.vehicleValueReduce:
+                defineActionWhenClickButtonReduceVehicleFromBufferValue();
+                break;
+
+            case R.id.vehicleValueIncrease:
+                defineActionWhenClickButtonIncreaseVehicleFromBufferValue();
+                break;
+
+            case R.id.goToSetTrackLength:
+                replaceFragment();
+                break;
+        }
     }
 
     private void defineActionWhenClickVehicleTypesAvailableListItem(
@@ -247,12 +253,24 @@ public class FragmentSetStartList extends Fragment {
     }
 
     private void addNewVehicle() {
-        new AddVehicleToStartListControllerCommand(
-                this.initializeObjectsControllerCommand.getRaceManager()
-        ).execute();
+        if(this.initializeObjectsControllerCommand.getRaceManager().getVehicleBuffer().getVehicleFromBuffer() == null) {
+            Toast toast = Toast.makeText(requireActivity(), "Choose vehicle first", Toast.LENGTH_LONG);
+            View view = toast.getView();
+            TextView text = view.findViewById(android.R.id.message);
+            view.getBackground().setColorFilter(Color.parseColor("#838383"), PorterDuff.Mode.SRC_IN);
+            text.setBackgroundColor(Color.parseColor("#838383"));
+            text.setTextColor(Color.parseColor("#EAEAEA"));
+            toast.show();
+        }
+        else {
+            new AddVehicleToStartListControllerCommand(
+                    this.initializeObjectsControllerCommand.getRaceManager()
+            ).execute();
+        }
+
     }
 
-    public void replaceFragment() {
+    private void replaceFragment() {
         if(initializeObjectsControllerCommand.
                 getRaceManager().
                 getVehicleStartList().

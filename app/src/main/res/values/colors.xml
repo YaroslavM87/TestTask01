@@ -38,4 +38,7 @@
 
     <color name="textViewColorVehicleFinishedState">#69F0AE</color>
 
+    <!-- colors for Toast notifications -->
+    <color name="toastBackgroundColor">#81C784</color>
+    <color name="toastTextColor">#121111</color>
 </resources>
